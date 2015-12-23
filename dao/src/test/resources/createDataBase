@@ -1,0 +1,79 @@
+drop table IF EXISTS employee;
+drop table IF EXISTS department;
+drop table IF EXISTS homeaddress;
+drop table IF EXISTS phone;
+drop table IF EXISTS phone_has_employee;
+
+create table employee(
+    id int primary key auto_increment,
+    name varchar(120) not null,
+    birthday datetime not null,
+    homePhone varchar(20) not null,
+    homeAddress_idHomeAddress int not null,
+    icq varchar(20) not null,
+    skype varchar(50) not null,
+    jobPhone varchar(20) not null,
+    jobAddress varchar(150 ) not null,
+    email varchar(50) not null,
+    department_departmentID int not null,
+    bossID int null);
+create table department(
+    id int primary key auto_increment,
+    departmentName varchar(120) not null,
+    employeeBoss_emloyeeID int not null);
+create table phone_has_employee(
+    id int primary key auto_increment,
+    phoneID int not null,
+    employeeID int not null);
+create table phone(
+    id int primary key auto_increment,
+    number varchar(45) not null,
+    type varchar(45) not null);
+create table homeaddress(
+    id int primary key auto_increment,
+    city varchar(45) not null,
+    street varchar(45) not null,
+    apartment int not null,
+    postal int not null);
+insert into employee
+    (name, birthday, homePhone, homeAddress_idHomeAddress, icq, skype, jobPhone,
+    jobAddress, email, department_departmentID, bossID)
+
+    values
+
+    ('Khomutov Andrey', '1980-01-05 00:00:00', '2-86-90', '2', '123456789', 'AndreySkype', '9804 9805',
+    'MainOffice', 'khomutov86@gmail.com', '2', '1'),
+
+        ('Ivanov Ivan', '1980-01-05 00:00:00', '2-86-90', '2', '123456789', 'AndreySkype', '9804 9805',
+        'MainOffice', 'khomutov86@gmail.com', '2', '1'),
+
+            ('Petrov Vasiliy', '1980-01-05 00:00:00', '2-86-90', '2', '123456789', 'AndreySkype', '9804 9805',
+            'MainOffice', 'khomutov86@gmail.com', '2', '1');
+
+insert into department
+    (departmentName, employeeBoss_emloyeeID)
+values
+    ('IT', '1'), ('COUNTING', '2'), ('ITSupport', '1');
+insert into homeaddress
+    (city, street, apartment, postal)
+values
+    ('SPB', 'Prospect Lenina', '10', '178000'),
+    ('SPB1', 'Prospect Lenina1', '101', '178001'),
+    ('SPB2', 'Prospect Lenina2', '102', '178002');
+insert into phone
+    (number, type)
+values
+    ('+79052772984', 'home'),
+    ('+8123221232', 'job'),
+    ('+8123221233', 'job'),
+    ('+8123221234', 'job'),
+    ('+79652772984', 'home'),
+    ('+79642772984', 'home');
+insert into phone_has_employee
+    (phoneID, employeeID)
+values
+    ('1', '1'),
+    ('2', '1'),
+    ('3', '2');
+
+

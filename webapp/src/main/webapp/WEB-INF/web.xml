@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <jsp-file>/WEB-INF/index.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Employees</servlet-name>
+        <jsp-file>/WEB-INF/Employees.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Employees</servlet-name>
+        <url-pattern>/employees</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Departments</servlet-name>
+        <jsp-file>/WEB-INF/Departments.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Departments</servlet-name>
+        <url-pattern>/departments</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <jsp-file>/WEB-INF/Search.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+
+
+
+    <!--<servlet>-->
+        <!--<description></description>-->
+        <!--<display-name>LoginServlet1</display-name>-->
+        <!--<servlet-name>LoginServlet1</servlet-name>-->
+        <!--<servlet-class>com.getjavajob.training.web06.khomutova.LoginServlet11</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>LoginServlet1</servlet-name>-->
+        <!--<url-pattern>/LoginServlet1</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet>-->
+        <!--<description></description>-->
+        <!--<display-name>ProfileServlet3</display-name>-->
+        <!--<servlet-name>ProfileServlet3</servlet-name>-->
+        <!--<servlet-class>com.getjavajob.training.web06.khomutova.ProfileServlet33</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ProfileServlet3</servlet-name>-->
+        <!--<url-pattern>/ProfileServlet3</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet>-->
+        <!--<description></description>-->
+        <!--<display-name>LogoutServlet2</display-name>-->
+        <!--<servlet-name>LogoutServlet2</servlet-name>-->
+        <!--<servlet-class>com.getjavajob.training.web06.khomutova.LogoutServlet22</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>LogoutServlet2</servlet-name>-->
+        <!--<url-pattern>/LogoutServlet2</url-pattern>-->
+    <!--</servlet-mapping>-->
+</web-app>
