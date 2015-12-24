@@ -5,7 +5,7 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.PhoneHasEmployee
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PhoneHasEmployeeDao extends GenericDao<PhoneHasEmployee>{
+public class PhoneHasEmployeeDao extends GenericDao<PhoneHasEmployee> {
 
     protected String getTableName() {
         return "phone_has_employee";

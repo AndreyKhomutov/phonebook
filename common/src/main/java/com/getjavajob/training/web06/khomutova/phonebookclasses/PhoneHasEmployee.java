@@ -1,8 +1,8 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
-public class PhoneHasEmployee extends BaseEntity{
-private int phoneID;
-private int employeeID;
+public class PhoneHasEmployee extends BaseEntity {
+    private int phoneID;
+    private int employeeID;
 
     public int getPhoneID() {
         return phoneID;

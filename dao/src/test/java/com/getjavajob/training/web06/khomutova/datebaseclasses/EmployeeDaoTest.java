@@ -1,6 +1,6 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.service.dto.EmployeeDTO;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.EmployeeDTO;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.util.Properties;
 import static org.junit.Assert.assertEquals;
 
 public class EmployeeDaoTest {
-    private EmployeeDao employeeDao=new EmployeeDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
 
     @Before
     public void importDataSet() {
@@ -28,7 +28,7 @@ public class EmployeeDaoTest {
         File file = new File(loader.getResource("createDataBase").getFile());
         try {
             try {
-                Reader reader=new FileReader(file);
+                Reader reader = new FileReader(file);
                 RunScript.execute(ConnectionPool.getConnection(), reader);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -50,28 +50,28 @@ public class EmployeeDaoTest {
         assertEquals("Khomutov Andrey", employee.getName());
     }
 
-   @Test
+    @Test
     public void add() {
-       EmployeeDTO employeeDTO=employeeDao.get(1);
-       employeeDTO.setName("Ivanov Ivan");
-       assertEquals(3, employeeDao.getAll().size());
-       employeeDao.add(employeeDTO);
-       assertEquals(4, employeeDao.getAll().size());
-   }
+        EmployeeDTO employeeDTO = employeeDao.get(1);
+        employeeDTO.setName("Ivanov Ivan");
+        assertEquals(3, employeeDao.getAll().size());
+        employeeDao.add(employeeDTO);
+        assertEquals(4, employeeDao.getAll().size());
+    }
 
     @Test
-   public void remove() {
+    public void remove() {
         assertEquals(3, employeeDao.getAll().size());
         employeeDao.delete(2);
         assertEquals(2, employeeDao.getAll().size());
     }
 
-   @Test
+    @Test
     public void set() {
-       EmployeeDTO employeeDTO=employeeDao.get(1);
-       assertEquals("Khomutov Andrey", employeeDTO.getName());
-       employeeDTO.setName("Petrov Boris");
-       employeeDao.update(employeeDTO);
-       assertEquals("Petrov Boris", employeeDao.get(1).getName());
-   }
+        EmployeeDTO employeeDTO = employeeDao.get(1);
+        assertEquals("Khomutov Andrey", employeeDTO.getName());
+        employeeDTO.setName("Petrov Boris");
+        employeeDao.update(employeeDTO);
+        assertEquals("Petrov Boris", employeeDao.get(1).getName());
+    }
 }

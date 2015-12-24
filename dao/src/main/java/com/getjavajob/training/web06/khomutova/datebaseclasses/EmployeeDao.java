@@ -1,6 +1,7 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.service.dto.EmployeeDTO;
+
+import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.EmployeeDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

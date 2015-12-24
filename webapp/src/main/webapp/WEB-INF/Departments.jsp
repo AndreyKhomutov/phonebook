@@ -55,17 +55,23 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Сотрудники</h2>
+
             <p>Список сотрудников </p>
+
             <p><a class="btn btn-default" href="/employees" role="button">Посмотреть &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Департаменты</h2>
+
             <p>Список департаментов </p>
+
             <p><a class="btn btn-default" href="/departments" role="button">Посмотреть &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Поиск</h2>
+
             <p>Здесь можно поискать сотрудников или департамент по различным параметрам</p>
+
             <p><a class="btn btn-default" href="/search" role="button">Посмотреть &raquo;</a></p>
         </div>
     </div>
@@ -89,13 +95,14 @@
         <tbody>
         <jsp:useBean id="dao1" class="com.getjavajob.training.web06.khomutova.datebaseclasses.DepartmentDao"
                      scope="application"/>
-        <c:forEach var="department" items="${dao1.getAll()}">
+        <c:forEach var="department" items="${dao1.all}">
             <tr>
                 <td>${department.id}</td>
-                <td>${department.name}</td>
+                <td>${department.departmentName}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Действие <span class="caret"></span></button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Действие
+                            <span class="caret"></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Просмотреть</a></li>
                             <li><a href="#">Редактировать</a></li>

@@ -2,7 +2,7 @@ package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
 public class Department extends BaseEntity {
     private String name;
-    private Employee departmentBoss;
+    private int departmentBoss;
 
     public String getName() {
         return name;
@@ -12,24 +12,11 @@ public class Department extends BaseEntity {
         this.name = name;
     }
 
-    public Employee getDepartmentBoss() {
+    public int getDepartmentBoss() {
         return departmentBoss;
     }
 
-    public void setDepartmentBoss(Employee departmentBoss) {
+    public void setDepartmentBoss(int departmentBoss) {
         this.departmentBoss = departmentBoss;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this==obj) return true;
-        if (!(obj instanceof HomeAddress)) return false;
-        Department department =(Department) obj;
-        return getId()== department.getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return getId();
     }
 }

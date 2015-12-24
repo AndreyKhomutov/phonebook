@@ -1,11 +1,12 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.service.dto.DepartmentDTO;
+
+import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.DepartmentDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DepartmentDao extends GenericDao<DepartmentDTO>{
+public class DepartmentDao extends GenericDao<DepartmentDTO> {
 
     @Override
     protected String getTableName() {

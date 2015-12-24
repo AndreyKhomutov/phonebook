@@ -40,7 +40,7 @@ public class Employee extends BaseEntity {
         this.phones = phones;
     }
 
-    public HomeAddress getHomeHomeAddress() {
+    public HomeAddress getHomeAddress() {
         return homeHomeAddress;
     }
 

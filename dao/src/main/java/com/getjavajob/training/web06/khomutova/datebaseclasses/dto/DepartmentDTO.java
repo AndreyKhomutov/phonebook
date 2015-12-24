@@ -1,8 +1,8 @@
-package com.getjavajob.training.web06.khomutova.service.dto;
+package com.getjavajob.training.web06.khomutova.datebaseclasses.dto;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
 
-public class DepartmentDTO extends BaseEntity{
+public class DepartmentDTO extends BaseEntity {
     private String departmentName;
     private int employeeBoss_emloyeeID;
 

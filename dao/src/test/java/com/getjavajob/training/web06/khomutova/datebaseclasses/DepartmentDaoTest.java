@@ -1,6 +1,6 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.service.dto.DepartmentDTO;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.DepartmentDTO;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DepartmentDaoTest {
 
-    private DepartmentDao departmentDao =new DepartmentDao();
+    private DepartmentDao departmentDao = new DepartmentDao();
 
     @Before
     public void importDataSet() {
@@ -29,7 +29,7 @@ public class DepartmentDaoTest {
         File file = new File(loader.getResource("createDataBase").getFile());
         try {
             try {
-                Reader reader=new FileReader(file);
+                Reader reader = new FileReader(file);
                 RunScript.execute(ConnectionPool.getConnection(), reader);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -51,28 +51,28 @@ public class DepartmentDaoTest {
         assertEquals("IT", departmentDTO.getDepartmentName());
     }
 
-   @Test
+    @Test
     public void add() {
-       DepartmentDTO departmentDTO= departmentDao.get(2);
-       departmentDTO.setDepartmentName("ITCeo");
-       assertEquals(3, departmentDao.getAll().size());
-       departmentDao.add(departmentDTO);
-       assertEquals(4, departmentDao.getAll().size());
-   }
+        DepartmentDTO departmentDTO = departmentDao.get(2);
+        departmentDTO.setDepartmentName("ITCeo");
+        assertEquals(3, departmentDao.getAll().size());
+        departmentDao.add(departmentDTO);
+        assertEquals(4, departmentDao.getAll().size());
+    }
 
     @Test
-   public void remove() {
+    public void remove() {
         assertEquals(3, departmentDao.getAll().size());
         departmentDao.delete(2);
         assertEquals(2, departmentDao.getAll().size());
     }
 
-   @Test
+    @Test
     public void set() {
-       DepartmentDTO departmentDTO= departmentDao.get(1);
-       assertEquals("IT", departmentDTO.getDepartmentName());
-       departmentDTO.setDepartmentName("ITCeo");
-       departmentDao.update(departmentDTO);
-       assertEquals("ITCeo", departmentDao.get(1).getDepartmentName());
-   }
+        DepartmentDTO departmentDTO = departmentDao.get(1);
+        assertEquals("IT", departmentDTO.getDepartmentName());
+        departmentDTO.setDepartmentName("ITCeo");
+        departmentDao.update(departmentDTO);
+        assertEquals("ITCeo", departmentDao.get(1).getDepartmentName());
+    }
 }

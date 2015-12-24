@@ -20,6 +20,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector}</version>
+            <scope>dao</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -34,14 +35,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <modules>
         <module>dao</module>
         <module>common</module>
         <module>service</module>
         <module>webapp</module>
     </modules>
-
     <build>
         <plugins>
             <plugin>
@@ -69,5 +68,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

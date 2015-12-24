@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.service.dto;
+package com.getjavajob.training.web06.khomutova.datebaseclasses.dto;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
 

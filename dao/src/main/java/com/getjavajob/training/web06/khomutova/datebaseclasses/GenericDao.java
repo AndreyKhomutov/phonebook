@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class GenericDao  <T extends BaseEntity> implements CrudDao<T>{
+public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     protected abstract String getTableName();
 
@@ -87,7 +87,7 @@ public abstract class GenericDao  <T extends BaseEntity> implements CrudDao<T>{
                 if (getMethod != null) {
                     Object fieldValue = getMethod.invoke(entity);
                     Object newValue;
-                    if (!fields[i].getType().isPrimitive() && !(fields[i].getType() == String.class )
+                    if (!fields[i].getType().isPrimitive() && !(fields[i].getType() == String.class)
                             && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class)) {
                         newValue = ((BaseEntity) fieldValue).getId();
                     } else if (fields[i].getType().isEnum()) {
@@ -156,7 +156,8 @@ public abstract class GenericDao  <T extends BaseEntity> implements CrudDao<T>{
                     if (resultSet.next()) {
                         return createInstanceFromResult(resultSet);
                     }
-                } {
+                }
+                {
                     return null;
                 }
             }

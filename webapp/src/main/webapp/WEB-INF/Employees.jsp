@@ -55,17 +55,23 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Сотрудники</h2>
+
             <p>Список сотрудников </p>
+
             <p><a class="btn btn-default" href="/employees" role="button">Посмотреть &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Департаменты</h2>
+
             <p>Список департаментов </p>
+
             <p><a class="btn btn-default" href="/departments" role="button">Посмотреть &raquo;</a></p>
         </div>
         <div class="col-md-4">
             <h2>Поиск</h2>
+
             <p>Здесь можно поискать сотрудников или департамент по различным параметрам</p>
+
             <p><a class="btn btn-default" href="/search" role="button">Посмотреть &raquo;</a></p>
         </div>
     </div>
@@ -97,13 +103,14 @@
                 <td>${employee.email}</td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Действие <span class="caret"></span></button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Действие
+                            <span class="caret"></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Просмотреть</a></li>
                             <li><a href="#">Редактировать</a></li>
                             <li><a href="#">Удалить</a></li>
-                            <%--<li class="divider"></li>--%>
-                            <%--<li><a href="#">Отдельная ссылка</a></li>--%>
+                                <%--<li class="divider"></li>--%>
+                                <%--<li><a href="#">Отдельная ссылка</a></li>--%>
                         </ul>
                     </div>
                 </td>
