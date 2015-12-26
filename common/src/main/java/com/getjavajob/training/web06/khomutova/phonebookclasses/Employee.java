@@ -1,5 +1,6 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,14 +8,13 @@ public class Employee extends BaseEntity {
 
     private String name;
     private Date birthday;
-    private List<Phone> phones;
-    private HomeAddress homeHomeAddress;
-    private JobAddress jobAddress;
+    private ArrayList<Phone> phones;
+    private ArrayList<Address> addresses;
     private String email;
     private String icq;
     private String skype;
     private Department department;
-    private Employee employeeBoss;
+    private Employee boss;
 
     public String getName() {
         return name;
@@ -36,24 +36,16 @@ public class Employee extends BaseEntity {
         return phones;
     }
 
-    public void setPhones(List<Phone> phones) {
+    public void setPhones(ArrayList<Phone> phones) {
         this.phones = phones;
     }
 
-    public HomeAddress getHomeAddress() {
-        return homeHomeAddress;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setHomeHomeAddress(HomeAddress homeHomeAddress) {
-        this.homeHomeAddress = homeHomeAddress;
-    }
-
-    public JobAddress getJobAddress() {
-        return jobAddress;
-    }
-
-    public void setJobAddress(JobAddress jobAddress) {
-        this.jobAddress = jobAddress;
+    public void setAddresses(ArrayList<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public String getEmail() {
@@ -88,11 +80,11 @@ public class Employee extends BaseEntity {
         this.department = department;
     }
 
-    public Employee getEmployeeBoss() {
-        return employeeBoss;
+    public Employee getBoss() {
+        return boss;
     }
 
-    public void setEmployeeBoss(Employee employeeBoss) {
-        this.employeeBoss = employeeBoss;
+    public void setBoss(Employee boss) {
+        this.boss = boss;
     }
 }

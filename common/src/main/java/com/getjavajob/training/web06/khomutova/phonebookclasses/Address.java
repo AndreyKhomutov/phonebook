@@ -1,10 +1,19 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
-public class HomeAddress extends BaseEntity {
+public class Address extends BaseEntity {
     private String city;
     private String street;
     private int apartment;
     private int postal;
+    private EntityType addressType;
+
+    public EntityType getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(EntityType addressType) {
+        this.addressType = addressType;
+    }
 
     public String getCity() {
         return city;

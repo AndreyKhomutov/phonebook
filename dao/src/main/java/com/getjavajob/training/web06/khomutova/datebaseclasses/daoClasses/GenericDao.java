@@ -1,6 +1,8 @@
-package com.getjavajob.training.web06.khomutova.datebaseclasses;
+package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
+import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -42,10 +44,17 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                     if (getMethod != null) {
                         fieldValue = getMethod.invoke(entity);
                         if (!fields[i].getType().isPrimitive() && !(fields[i].getType() == String.class)
-                                && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class)) {
+                                && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class) && !(fields[i].getType() == ArrayList.class)) {
                             newValue = ((BaseEntity) fieldValue).getId();
                         } else if (fields[i].getType().isEnum()) {
                             newValue = ((java.lang.Enum) fieldValue).ordinal() + 1;
+                        } else if (fields[i].getType() == ArrayList.class) {
+                            int lenght = ((ArrayList) fieldValue).size();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int j = 0; j < lenght; j++) {
+                                stringBuilder.append(((ArrayList<T>) fieldValue).get(j).getId() + " ");
+                            }
+                            newValue = stringBuilder.toString();
                         } else {
                             newValue = fieldValue;
                         }
@@ -56,6 +65,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                 prepareStatement.setObject(i + 1, newValue);
             }
             prepareStatement.executeUpdate();
+            connection.setAutoCommit(false);
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,9 +98,17 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                     Object fieldValue = getMethod.invoke(entity);
                     Object newValue;
                     if (!fields[i].getType().isPrimitive() && !(fields[i].getType() == String.class)
-                            && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class)) {
+                            && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class)
+                            && !(fields[i].getType() == ArrayList.class)) {
                         newValue = ((BaseEntity) fieldValue).getId();
-                    } else if (fields[i].getType().isEnum()) {
+                    } else if ((fields[i].getType() == ArrayList.class)) {
+                        int lenght = ((ArrayList) fieldValue).size();
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (int j = 0; j < lenght; j++) {
+                            stringBuilder.append(((ArrayList<T>) fieldValue).get(j).getId() + " ");
+                        }
+                        newValue = stringBuilder.toString();
+                    }else if (fields[i].getType().isEnum()) {
                         newValue = ((java.lang.Enum) fieldValue).ordinal() + 1;
                     } else {
                         newValue = fieldValue;
@@ -205,6 +223,12 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     protected String getSelectAllStatement() {
         return "SELECT * FROM " + getTableName();
+    }
+
+    protected EntityType getType(String type) {
+        if (type.equals("home")) {
+            return EntityType.home;
+        } else return EntityType.job;
     }
 
     protected String getSelectByIdStatement() {

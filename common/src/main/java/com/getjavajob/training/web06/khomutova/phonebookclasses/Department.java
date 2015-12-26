@@ -2,7 +2,7 @@ package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
 public class Department extends BaseEntity {
     private String name;
-    private int departmentBoss;
+    private Employee departmentBoss;
 
     public String getName() {
         return name;
@@ -12,11 +12,11 @@ public class Department extends BaseEntity {
         this.name = name;
     }
 
-    public int getDepartmentBoss() {
+    public Employee getDepartmentBoss() {
         return departmentBoss;
     }
 
-    public void setDepartmentBoss(int departmentBoss) {
+    public void setDepartmentBoss(Employee departmentBoss) {
         this.departmentBoss = departmentBoss;
     }
 }

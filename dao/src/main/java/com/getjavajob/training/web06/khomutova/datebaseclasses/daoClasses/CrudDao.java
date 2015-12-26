@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.datebaseclasses;
+package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import java.util.List;
 

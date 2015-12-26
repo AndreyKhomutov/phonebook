@@ -1,6 +1,8 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.EmployeeDTO;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,38 +42,38 @@ public class EmployeeDaoTest {
 
     @Test
     public void getAll() {
-        List<EmployeeDTO> employees = employeeDao.getAll();
-        assertEquals(3, employees.size());
+        List<Employee> employees = employeeDao.getAll();
+        assertEquals(2, employees.size());
     }
 
     @Test
     public void getById_Exist() {
-        EmployeeDTO employee = employeeDao.get(1);
+        Employee employee = employeeDao.get(1);
         assertEquals("Khomutov Andrey", employee.getName());
     }
 
     @Test
     public void add() {
-        EmployeeDTO employeeDTO = employeeDao.get(1);
-        employeeDTO.setName("Ivanov Ivan");
+        Employee employee = employeeDao.get(1);
+        employee.setName("Ivanov Ivan");
+        assertEquals(2, employeeDao.getAll().size());
+        employeeDao.add(employee);
         assertEquals(3, employeeDao.getAll().size());
-        employeeDao.add(employeeDTO);
-        assertEquals(4, employeeDao.getAll().size());
     }
 
     @Test
     public void remove() {
-        assertEquals(3, employeeDao.getAll().size());
-        employeeDao.delete(2);
         assertEquals(2, employeeDao.getAll().size());
+        employeeDao.delete(2);
+        assertEquals(1, employeeDao.getAll().size());
     }
 
     @Test
     public void set() {
-        EmployeeDTO employeeDTO = employeeDao.get(1);
-        assertEquals("Khomutov Andrey", employeeDTO.getName());
-        employeeDTO.setName("Petrov Boris");
-        employeeDao.update(employeeDTO);
+        Employee employee = employeeDao.get(1);
+        assertEquals("Khomutov Andrey", employee.getName());
+        employee.setName("Petrov Boris");
+        employeeDao.update(employee);
         assertEquals("Petrov Boris", employeeDao.get(1).getName());
     }
 }

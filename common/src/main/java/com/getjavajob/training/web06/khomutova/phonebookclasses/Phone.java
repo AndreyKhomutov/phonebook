@@ -2,7 +2,7 @@ package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
 public class Phone extends BaseEntity {
     private String number;
-    private PhoneType phoneType;
+    private EntityType entityType;
 
     public String getNumber() {
         return number;
@@ -12,11 +12,11 @@ public class Phone extends BaseEntity {
         this.number = number;
     }
 
-    public PhoneType getPhoneType() {
-        return phoneType;
+    public EntityType getEntityType() {
+        return entityType;
     }
 
-    public void setPhoneType(PhoneType phoneType) {
-        this.phoneType = phoneType;
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
     }
 }

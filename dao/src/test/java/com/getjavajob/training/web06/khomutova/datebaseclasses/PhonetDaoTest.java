@@ -1,6 +1,8 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.PhoneDTO;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,22 +43,22 @@ public class PhonetDaoTest {
 
     @Test
     public void getAll() {
-        List<PhoneDTO> phones = phoneDao.getAll();
+        List<Phone> phones = phoneDao.getAll();
         assertEquals(6, phones.size());
     }
 
     @Test
     public void getById_Exist() {
-        PhoneDTO phoneDTO = phoneDao.get(1);
-        assertEquals("+79052772984", phoneDTO.getNumber());
+        Phone phone = phoneDao.get(1);
+        assertEquals("+79052772984", phone.getNumber());
     }
 
     @Test
     public void add() {
-        PhoneDTO phoneDTO = phoneDao.get(2);
-        phoneDTO.setNumber("88129898998");
+        Phone phone = phoneDao.get(2);
+        phone.setNumber("88129898998");
         assertEquals(6, phoneDao.getAll().size());
-        phoneDao.add(phoneDTO);
+        phoneDao.add(phone);
         assertEquals(7, phoneDao.getAll().size());
     }
 
@@ -69,10 +71,10 @@ public class PhonetDaoTest {
 
     @Test
     public void set() {
-        PhoneDTO phoneDTO = phoneDao.get(1);
-        assertEquals("+79052772984", phoneDTO.getNumber());
-        phoneDTO.setNumber("+79999999999");
-        phoneDao.update(phoneDTO);
+        Phone phone = phoneDao.get(1);
+        assertEquals("+79052772984", phone.getNumber());
+        phone.setNumber("+79999999999");
+        phoneDao.update(phone);
         assertEquals("+79999999999", phoneDao.get(1).getNumber());
     }
 }

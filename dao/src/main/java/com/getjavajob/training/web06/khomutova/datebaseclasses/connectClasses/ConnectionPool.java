@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.datebaseclasses;
+package com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses;
 
 
 import org.apache.commons.dbcp2.*;

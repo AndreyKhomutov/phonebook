@@ -94,7 +94,7 @@
         </tr>
         </thead>
         <tbody>
-        <jsp:useBean id="dao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.EmployeeDao"
+        <jsp:useBean id="dao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao"
                      scope="application"/>
         <c:forEach var="employee" items="${dao.getAll()}">
             <tr>

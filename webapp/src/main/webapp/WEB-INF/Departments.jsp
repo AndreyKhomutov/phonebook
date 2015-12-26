@@ -93,7 +93,7 @@
         </tr>
         </thead>
         <tbody>
-        <jsp:useBean id="dao1" class="com.getjavajob.training.web06.khomutova.datebaseclasses.DepartmentDao"
+        <jsp:useBean id="dao1" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.DepartmentDao"
                      scope="application"/>
         <c:forEach var="department" items="${dao1.all}">
             <tr>

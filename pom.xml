@@ -9,19 +9,26 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>dao</module>
+        <module>common</module>
+        <module>service</module>
+        <module>webapp</module>
+    </modules>
+
     <properties>
         <java.version>1.7</java.version>
         <junit>4.11</junit>
         <mysql.connector>5.1.6</mysql.connector>
+        <commons-dbcp2>2.0</commons-dbcp2>
+        <jstl>1.2</jstl>
+        <bootstrap>3.2.0</bootstrap>
+        <jquery>2.1.4</jquery>
+        <javax.servlet-api>3.1.0</javax.servlet-api>
+        <h2>1.4.190</h2>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector}</version>
-            <scope>dao</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -31,16 +38,11 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.190</version>
+            <version>${h2}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <modules>
-        <module>dao</module>
-        <module>common</module>
-        <module>service</module>
-        <module>webapp</module>
-    </modules>
+
     <build>
         <plugins>
             <plugin>

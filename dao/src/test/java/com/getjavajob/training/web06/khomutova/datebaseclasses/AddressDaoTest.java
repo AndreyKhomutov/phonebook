@@ -1,6 +1,8 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.phonebookclasses.HomeAddress;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.AddressDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,9 +14,9 @@ import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 
-public class HomeAddressDaoTest {
+public class AddressDaoTest {
 
-    private HomeAddressDao homeAddressDao = new HomeAddressDao();
+    private AddressDao addressDao = new AddressDao();
 
     @Before
     public void importDataSet() {
@@ -25,7 +27,7 @@ public class HomeAddressDaoTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ClassLoader loader = HomeAddressDaoTest.class.getClassLoader();
+        ClassLoader loader = AddressDaoTest.class.getClassLoader();
         File file = new File(loader.getResource("createDataBase").getFile());
         try {
             try {
@@ -41,38 +43,38 @@ public class HomeAddressDaoTest {
 
     @Test
     public void getAll() {
-        List<HomeAddress> employees = homeAddressDao.getAll();
+        List<Address> employees = addressDao.getAll();
         assertEquals(3, employees.size());
     }
 
     @Test
     public void getById_Exist() {
-        HomeAddress homeAddress = homeAddressDao.get(1);
-        assertEquals("SPB", homeAddress.getCity());
+        Address address = addressDao.get(1);
+        assertEquals("SPB", address.getCity());
     }
 
     @Test
     public void add() {
-        HomeAddress homeAddress = homeAddressDao.get(2);
-        homeAddress.setCity("Moscow");
-        assertEquals(3, homeAddressDao.getAll().size());
-        homeAddressDao.add(homeAddress);
-        assertEquals(4, homeAddressDao.getAll().size());
+        Address address = addressDao.get(2);
+        address.setCity("Moscow");
+        assertEquals(3, addressDao.getAll().size());
+        addressDao.add(address);
+        assertEquals(4, addressDao.getAll().size());
     }
 
     @Test
     public void remove() {
-        assertEquals(3, homeAddressDao.getAll().size());
-        homeAddressDao.delete(2);
-        assertEquals(2, homeAddressDao.getAll().size());
+        assertEquals(3, addressDao.getAll().size());
+        addressDao.delete(2);
+        assertEquals(2, addressDao.getAll().size());
     }
 
     @Test
     public void set() {
-        HomeAddress homeAddress = homeAddressDao.get(1);
-        assertEquals("SPB", homeAddress.getCity());
-        homeAddress.setCity("Moscow");
-        homeAddressDao.update(homeAddress);
-        assertEquals("Moscow", homeAddressDao.get(1).getCity());
+        Address address = addressDao.get(1);
+        assertEquals("SPB", address.getCity());
+        address.setCity("Moscow");
+        addressDao.update(address);
+        assertEquals("Moscow", addressDao.get(1).getCity());
     }
 }
