@@ -33,8 +33,8 @@ public class DepartmentDao extends GenericDao<Department> {
         return department;
     }
 
-    private Employee makeBoss (int id) {
-        Employee employee =new Employee();
+    private Employee makeBoss(int id) {
+        Employee employee = new Employee();
         employee.setId(id);
         return employee;
     }

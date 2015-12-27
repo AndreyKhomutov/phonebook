@@ -2,7 +2,6 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.DepartmentDao;
-//import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.DepartmentDTO;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import org.h2.tools.RunScript;
 import org.junit.Before;
@@ -14,6 +13,8 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
+
+//import com.getjavajob.training.web06.khomutova.datebaseclasses.dto.DepartmentDTO;
 
 public class DepartmentDaoTest {
 
@@ -33,7 +34,7 @@ public class DepartmentDaoTest {
         try {
             try {
                 Reader reader = new FileReader(file);
-                RunScript.execute(ConnectionPool.getConnection(), reader);
+                RunScript.execute(ConnectionPool.POOL.getConnection(), reader);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

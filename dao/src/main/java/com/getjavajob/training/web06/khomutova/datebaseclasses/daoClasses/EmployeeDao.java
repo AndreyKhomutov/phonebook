@@ -43,37 +43,37 @@ public class EmployeeDao extends GenericDao<Employee> {
         return employee;
     }
 
-    private ArrayList<Phone> getPhones(String phonesDAO){
-        String[] phonesString=phonesDAO.split(" ");
-        ArrayList<Phone> phones=new ArrayList<>();
-        PhoneDao phoneDao=new PhoneDao();
-        for (String phone: phonesString){
-            Phone phone1=phoneDao.get(Integer.parseInt(phone));
+    private ArrayList<Phone> getPhones(String phonesDAO) {
+        String[] phonesString = phonesDAO.split(" ");
+        ArrayList<Phone> phones = new ArrayList<>();
+        PhoneDao phoneDao = new PhoneDao();
+        for (String phone : phonesString) {
+            Phone phone1 = phoneDao.get(Integer.parseInt(phone));
             phones.add(phone1);
         }
         return phones;
     }
 
-    private Employee makeBoss(int id){
-        Employee employee=new Employee();
+    private Employee makeBoss(int id) {
+        Employee employee = new Employee();
         employee.setId(id);
         return employee;
     }
 
-    private Department makeDepartment(int id){
-        DepartmentDao departmentDao=new DepartmentDao();
-        Department department=new Department();
+    private Department makeDepartment(int id) {
+        DepartmentDao departmentDao = new DepartmentDao();
+        Department department = new Department();
         department.setId(id);
         department.setName(departmentDao.get(id).getName());
         return department;
     }
 
-    private ArrayList<Address> makeAddress(String id){
-        AddressDao addressDao=new AddressDao();
-        ArrayList<Address> addresses=new ArrayList<>();
-        String[] addressesDAO=id.split(" ");
-        for (String addressID: addressesDAO) {
-            Address address=addressDao.get(Integer.parseInt(addressID));
+    private ArrayList<Address> makeAddress(String id) {
+        AddressDao addressDao = new AddressDao();
+        ArrayList<Address> addresses = new ArrayList<>();
+        String[] addressesDAO = id.split(" ");
+        for (String addressID : addressesDAO) {
+            Address address = addressDao.get(Integer.parseInt(addressID));
             addresses.add(address);
         }
         return addresses;

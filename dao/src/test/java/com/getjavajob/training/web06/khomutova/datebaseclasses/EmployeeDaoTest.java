@@ -31,7 +31,7 @@ public class EmployeeDaoTest {
         try {
             try {
                 Reader reader = new FileReader(file);
-                RunScript.execute(ConnectionPool.getConnection(), reader);
+                RunScript.execute(ConnectionPool.POOL.getConnection(), reader);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

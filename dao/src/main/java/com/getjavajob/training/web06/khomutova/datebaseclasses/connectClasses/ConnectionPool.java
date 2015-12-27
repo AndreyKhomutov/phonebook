@@ -1,66 +1,81 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses;
 
 
-import org.apache.commons.dbcp2.*;
-import org.apache.commons.pool2.ObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
 
-    private static Connection connection;
+    public static final ConnectionPool POOL = new ConnectionPool();
+    private static final int CONNECTIONS_SIZE = 10;
+    private static final int IZOLATION_LEVEL = Connection.TRANSACTION_READ_COMMITTED;
+    private static boolean autocommit;
+    private static String uri;
+    private static String user;
+    private static String password;
+    private BlockingQueue<Connection> pool = new LinkedBlockingQueue<>();
+    private ThreadLocal<ConnectionHolder> connectionHolders = new ThreadLocal<ConnectionHolder>() {
+        protected ConnectionHolder initialValue() {
+            return new ConnectionHolder();
+        }
+    };
 
-    static {
+
+    public ConnectionPool() {
+        Properties properties = new Properties();
         try {
-            Properties properties = new Properties();
             properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("phonebook.properties"));
-            String uri = properties.getProperty("url");
-            String user = properties.getProperty("user");
-            String password = properties.getProperty("password");
-            String driver = properties.getProperty("driver");
-            Class.forName(driver);
-            ConnectionFactory connectionFactory = getConnectionFactory(uri, user, password);
-            PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(connectionFactory, null);
-            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolFactory);
-            poolFactory.setPool(connectionPool);
-            PoolingDriver dbcpDriver = getDBCPDriver();
-            dbcpDriver.registerPool("shop_connection", connectionPool);
-        } catch (ClassNotFoundException | IOException e) {
+            uri = properties.getProperty("url");
+            user = properties.getProperty("user");
+            password = properties.getProperty("password");
+            autocommit = Boolean.parseBoolean(properties.getProperty("autocommit"));
+        } catch (IOException e) {
             e.printStackTrace();
+        }
+        for (int i = 0; i < CONNECTIONS_SIZE; i++) {
+            pool.add(makeConnection());
         }
     }
 
-    private static ConnectionFactory getConnectionFactory(String uri, String user, String password) {
-        return new DriverManagerConnectionFactory(
-                uri, user, password);
-    }
-
-    private static PoolingDriver getDBCPDriver() {
-        PoolingDriver driver = null;
-        try {
-            Class.forName("org.apache.commons.dbcp2.PoolingDriver");
-            driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+    public Connection getConnection() {
+        ConnectionHolder connectionHolder = connectionHolders.get();
+        if (connectionHolder.getConnection() == null) {
+            try {
+                connectionHolder.setConnection(pool.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        return driver;
+        return connectionHolder.incremAndGet();
     }
 
-    public static Connection getConnection() {
+    private Connection makeConnection() {
+        Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:shop_connection");
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(uri, user, password);
+            connection.setAutoCommit(autocommit);
+            connection.setTransactionIsolation(IZOLATION_LEVEL);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        if (connection == null) {
+            throw new NullPointerException();
         }
         return connection;
     }
 
-    public static void releaseConnection(Connection con) {
-        Utils.closeQuietly(con);
+    public void release() {
+        ConnectionHolder connectionHolder = connectionHolders.get();
+        connectionHolder.release();
+        if (connectionHolder.getEqualsRelease()) {
+            pool.add(connectionHolder.getConnection());
+            connectionHolder.setConnection(null);
+        }
     }
 }
