@@ -65,16 +65,8 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                 prepareStatement.setObject(i + 1, newValue);
             }
             prepareStatement.executeUpdate();
-            connection.setAutoCommit(false);
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
         }
         ConnectionPool.POOL.release();
         entity.setId(getMaxId());
@@ -150,24 +142,16 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
         try (PreparedStatement prepareStatement = connection.prepareStatement(getDeleteByIdStatement())) {
             prepareStatement.setInt(1, id);
             prepareStatement.executeUpdate();
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
         }
         ConnectionPool.POOL.release();
     }
 
     @Override
     public T get(int id) {
-        Connection connection = null;
+        Connection connection = ConnectionPool.POOL.getConnection();
         try {
-            connection = ConnectionPool.POOL.getConnection();
             try (PreparedStatement prepareStatement = connection.prepareStatement(getSelectByIdStatement())) {
                 prepareStatement.setInt(1, id);
                 try (ResultSet resultSet = prepareStatement.executeQuery()) {
@@ -188,9 +172,8 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
     }
 
     public List<T> getAll() {
-        Connection connection = null;
+        Connection connection = ConnectionPool.POOL.getConnection();
         try {
-            connection = ConnectionPool.POOL.getConnection();
             try (ResultSet resultSet = connection.createStatement().executeQuery(getSelectAllStatement())) {
                 List<T> resultList = new ArrayList<>();
                 while (resultSet.next()) {
