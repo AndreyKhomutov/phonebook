@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>com.getjavajob</groupId>
-            <artifactId>dao</artifactId>
+            <artifactId>service</artifactId>
             <version>${project.version}</version>
         </dependency>
 

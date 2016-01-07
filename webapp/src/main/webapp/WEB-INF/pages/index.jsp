@@ -25,33 +25,57 @@
             <a class="navbar-brand" href="#">PhoneBook</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
+            <% if (session.getAttribute("user") == null && session.getAttribute("profileType") == null) {
+            %>
+            <form action="LoginServlet" method="post" class="navbar-form navbar-right">
                 <div class="form-group">
-                    <input type="text" placeholder="Имя пользователя" class="form-control">
+                    <input type="text" name="user" placeholder="Имя пользователя" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Пароль" class="form-control">
+                    <input type="password" name="pwd" placeholder="Пароль" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-success">Войти</button>
+                <button type="submit" value="Login" class="btn btn-success">Войти</button>
+                <label>
+                    <input type="checkbox" name="remember_me" id="remember_me">
+                    Remember me on this computer
+                </label>
             </form>
+            <%
+            } else {
+                String user = (String) session.getAttribute("user");
+
+            %>
+            <form action="LogoutServlet" method="post" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <h4><p class="text-success"> Welcome <%=user%> !</h4>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Logout" class="btn btn-success">
+                </div>
+            </form>
+            <% }
+            %>
         </div>
-        <!--/.navbar-collapse -->
     </div>
 </nav>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Телефонная книга</h1>
+        <h2>Поиск по сотрудникам и департементам</h2>
 
-        <p>В телефонной книге представлены список сотрудников и список департаментов.</p>
-
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Подробнее &raquo;</a></p>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Искать</button>
+      </span>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-4">
             <h2>Сотрудники</h2>
@@ -67,23 +91,9 @@
 
             <p><a class="btn btn-default" href="/departments" role="button">Посмотреть &raquo;</a></p>
         </div>
-        <div class="col-md-4">
-            <h2>Поиск</h2>
-
-            <p>Здесь можно поискать сотрудников или департамент по различным параметрам</p>
-
-            <p><a class="btn btn-default" href="/search" role="button">Посмотреть &raquo;</a></p>
-        </div>
     </div>
-
     <hr>
-
-    <footer>
-        <p>&copy; getjavajob.ru</p>
-    </footer>
 </div>
-<!-- /container -->
-
 </body>
 
 </html>

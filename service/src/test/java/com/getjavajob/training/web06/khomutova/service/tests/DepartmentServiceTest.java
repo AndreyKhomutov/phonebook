@@ -5,6 +5,7 @@ import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.Employ
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,8 +17,12 @@ import static org.mockito.Mockito.when;
 
 public class DepartmentServiceTest {
     private DepartmentDao imitatorDao = mock(DepartmentDao.class);
-    private DepartmentService departmentService = new DepartmentService(imitatorDao);
+    private DepartmentService departmentService = new DepartmentService();
 
+    @Before
+    public void init() {
+        departmentService.setDao(imitatorDao);
+    }
 
     @Test
     public void getAll() {
@@ -65,7 +70,8 @@ public class DepartmentServiceTest {
     public void getEmployees() {
         DepartmentDao departmentImitation = mock(DepartmentDao.class);
         EmployeeDao emloyeeImitation = mock(EmployeeDao.class);
-        DepartmentService departmentService = new DepartmentService(departmentImitation, emloyeeImitation);
+        DepartmentService departmentService = new DepartmentService();
+        departmentService.setDao(departmentImitation);
         Department it = new Department();
         it.setId(1);
         it.setName("IT");
@@ -74,9 +80,9 @@ public class DepartmentServiceTest {
         counting.setName("COUTING");
         List<Employee> employees = makeEmployees();
         when(emloyeeImitation.getAll()).thenReturn(employees);
-        List<Employee> result = departmentService.getEmployees(it);
+        List<Employee> result = departmentService.getEmployees(it, emloyeeImitation);
         assertEquals(2, result.size());
-        List<Employee> result2 = departmentService.getEmployees(counting);
+        List<Employee> result2 = departmentService.getEmployees(counting, emloyeeImitation);
         assertEquals(1, result2.size());
     }
 

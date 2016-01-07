@@ -3,6 +3,7 @@ package com.getjavajob.training.web06.khomutova.service.tests;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,7 +15,13 @@ import static org.mockito.Mockito.when;
 
 public class EmployeeServiceTest {
     private EmployeeDao imitatorDao = mock(EmployeeDao.class);
-    private EmployeeService employeeService = new EmployeeService(imitatorDao);
+    private EmployeeService employeeService = new EmployeeService();
+
+
+    @Before
+    public void initilizatio() {
+        employeeService.setDao(imitatorDao);
+    }
 
 
     @Test
