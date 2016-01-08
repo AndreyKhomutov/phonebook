@@ -19,7 +19,7 @@ public class EmployeeDao extends GenericDao<Employee> {
 
     @Override
     protected String getInsertStatement() {
-        return "INSERT INTO " + getTableName() + "(name, birthday, phones, icq, email, boss, skype, department, addresses) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO " + getTableName() + "(name, birthday, phones, addresses, email, icq, skype, department, boss) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override

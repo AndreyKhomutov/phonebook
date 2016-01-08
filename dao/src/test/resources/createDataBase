@@ -31,7 +31,7 @@ create table address(
     postal int not null,
     type varchar(45) not null);
 insert into employee
-    (name, birthday, phones, icq, skype, email, boss, department, addresses)
+    (name, birthday, phones, boss, skype, email, icq, department, addresses)
     values
     ('Khomutov Andrey', '1980-01-05 00:00:00', '1 2', '123456789', 'AndreySkype22', 'ddd@gmail.com',
     '2', '1', '1 3'),

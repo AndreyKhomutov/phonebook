@@ -18,6 +18,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>deleteEmployee</servlet-name>
+        <servlet-class>com.getjavajob.training.web06.khomutova.servlets.DeleteEmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteEmployee</servlet-name>
+        <url-pattern>/DeleteEmployeeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Employees</servlet-name>
         <jsp-file>/WEB-INF/pages/Employees.jsp</jsp-file>
         <load-on-startup>1</load-on-startup>
@@ -37,6 +47,17 @@
     <servlet-mapping>
         <servlet-name>Departments</servlet-name>
         <url-pattern>/departments</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addEmployee</servlet-name>
+        <jsp-file>/WEB-INF/pages/addEmployee.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addEmployee</servlet-name>
+        <url-pattern>/addEmployee</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -79,9 +100,7 @@
 
     <filter-mapping>
         <filter-name>AccessFilter</filter-name>
-        <url-pattern>/updateEmployee</url-pattern>
         <url-pattern>/deleteEmployee</url-pattern>
-        <url-pattern>/addEmployee</url-pattern>
     </filter-mapping>
 
 </web-app>

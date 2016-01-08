@@ -38,7 +38,7 @@
                     <button type="submit" value="Login" class="btn btn-success">Войти</button>
                     <label>
                         <input type="checkbox" name="remember_me" id="remember_me">
-                        Remember me on this computer
+                        Remember
                     </label>
                 </form>
                 <%
@@ -91,6 +91,8 @@
         <hr>
     </div>
     <h2>Список сотрудников</h2>
+    <%--<a href="/addEmployee" button class="btn btn-primary btn-sm RbtnMargin" type="button">Добавить</a>--%>
+    <p><a class="btn btn-primary btn-sm RbtnMargin" href="/addEmployee" role="button">Добавить</a></p>
     <table class="table">
         <thead>
         <tr>
@@ -114,10 +116,15 @@
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Действие
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu" role="menu">
+                            <li>
+                                    <a href="/DeleteEmployeeServlet?ID=${employee.id}">Удалить</a>
+                            </li>
+
+
                             <li><a href="/employee?ID=${employee.id}">Просмотреть</a></li>
+                            <li><a href="/updateEmployee?ID=${employee.id}">Редактировать</a></li>
                             <% if (session.getAttribute("profileType")!=null && session.getAttribute("profileType").equals("admin")) {
                             %>
-                            <li><a href="/updateEmployee?ID=${employee.id}">Редактировать</a></li>
                             <li><a href="#">Удалить</a></li>
                             <%
                                 }
