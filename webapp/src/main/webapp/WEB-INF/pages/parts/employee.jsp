@@ -1,4 +1,3 @@
-<%@ page import="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Address" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Employee" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Phone" %>
@@ -8,20 +7,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
-</head>
+
+<body>
+
+<jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
+<jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
+
 <% EmployeeService employeeService = new EmployeeService();
-    employeeService.setDao(new EmployeeDao());
     int id = Integer.parseInt(request.getParameter("ID"));
     Employee employee = employeeService.get(id);
 %>
-<body>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
@@ -56,6 +52,11 @@
                                 <tr>
                                     <td>EMAIL</td>
                                     <td><%=employee.getEmail() %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SKYPE</td>
+                                    <td><%=employee.getSkype() %>
                                     </td>
                                 </tr>
                                 <tr>

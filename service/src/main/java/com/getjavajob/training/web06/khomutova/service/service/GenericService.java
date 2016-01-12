@@ -40,7 +40,17 @@ public class GenericService<T extends BaseEntity> implements CrudDao<T> {
 
     @Override
     public void update(T entity) {
-
+        Connection connection = ConnectionPool.POOL.getConnection();
+        try {
+            dao.update(entity);
+            connection.commit();
+        } catch (SQLException e) {
+        } finally {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+            }
+        }
     }
 
     @Override

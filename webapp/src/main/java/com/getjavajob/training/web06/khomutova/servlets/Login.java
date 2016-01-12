@@ -1,27 +1,26 @@
 package com.getjavajob.training.web06.khomutova.servlets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.*;
+import java.io.IOException;
 import java.util.Properties;
 
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
         Properties properties = new Properties();
-        properties.load(LoginServlet.class.getClassLoader().getResourceAsStream("users.properties"));
-        String userID=properties.getProperty("login1");
-        String adminID=properties.getProperty("login2");
-        String password=properties.getProperty("password");
-        String userName1=properties.getProperty("name1");
-        String userName2=properties.getProperty("name2");
-        String profilType1=properties.getProperty("profileType1");
-        String profilType2=properties.getProperty("profileType2");
+        properties.load(Login.class.getClassLoader().getResourceAsStream("users.properties"));
+        String userID = properties.getProperty("login1");
+        String adminID = properties.getProperty("login2");
+        String password = properties.getProperty("password");
+        String userName1 = properties.getProperty("name1");
+        String userName2 = properties.getProperty("name2");
+        String profilType1 = properties.getProperty("profileType1");
+        String profilType2 = properties.getProperty("profileType2");
         String user = request.getParameter("user");
         String pwd = request.getParameter("pwd");
         boolean rememberMe = false;
@@ -30,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (userID.equals(user) || adminID.equals(user) && password.equals(pwd)) {
+            System.out.println("Bingo1");
             HttpSession session = request.getSession();
             if (userID.equals(user)) {
                 session.setAttribute("user", userName1);
@@ -53,10 +53,7 @@ public class LoginServlet extends HttpServlet {
             }
             response.sendRedirect("/");
         } else {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>Either user name or password is wrong.</font>");
-            rd.include(request, response);
+            response.sendRedirect("/");
         }
     }
 }
