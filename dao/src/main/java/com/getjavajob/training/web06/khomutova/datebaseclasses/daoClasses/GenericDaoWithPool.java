@@ -3,8 +3,6 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
-import static com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.DataSourceHolder.getDataSource;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -17,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
-
-
+public abstract class GenericDaoWithPool<T extends BaseEntity> implements CrudDao<T> {
 
     protected abstract String getTableName();
 
@@ -31,10 +27,10 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     @Override
     public void add(T entity) {
+        Connection connection = ConnectionPool.POOL.getConnection();
         Class<?> clazz = entity.getClass();
         Field[] fields = clazz.getDeclaredFields();
-        try (Connection connection = getDataSource().getConnection();
-         PreparedStatement prepareStatement = connection.prepareStatement(getInsertStatement())) {
+        try (PreparedStatement prepareStatement = connection.prepareStatement(getInsertStatement())) {
             for (int i = 0; i < fields.length; i++) {
                 Method getMethod = null;
                 Object fieldValue;
@@ -51,7 +47,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                                 && !(fields[i].getType().isEnum()) && !(fields[i].getType() == Date.class) && !(fields[i].getType() == ArrayList.class)) {
                             newValue = ((BaseEntity) fieldValue).getId();
                         } else if (fields[i].getType().isEnum()) {
-                            newValue = ((java.lang.Enum) fieldValue).ordinal() + 1;
+                            newValue = ((Enum) fieldValue).ordinal() + 1;
                         } else if (fields[i].getType() == ArrayList.class) {
                             int lenght = ((ArrayList) fieldValue).size();
                             StringBuilder stringBuilder = new StringBuilder();
@@ -72,6 +68,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ConnectionPool.POOL.release();
         entity.setId(getMaxId());
     }
 
@@ -104,7 +101,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
                         }
                         newValue = stringBuilder.toString();
                     } else if (fields[i].getType().isEnum()) {
-                        newValue = ((java.lang.Enum) fieldValue).ordinal() + 1;
+                        newValue = ((Enum) fieldValue).ordinal() + 1;
                     } else {
                         newValue = fieldValue;
                     }
@@ -118,36 +115,44 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
     }
 
     private void updateField(List<Object> values, int id) {
-       int fieldsQty = values.size();
-        try (Connection connection = getDataSource().getConnection();
-             PreparedStatement prepareStatement = connection.prepareStatement(getUpdateByIdStatement())) {
+        Connection connection = ConnectionPool.POOL.getConnection();
+        int fieldsQty = values.size();
+        try (PreparedStatement prepareStatement = connection.prepareStatement(getUpdateByIdStatement())) {
             for (int i = 0; i < values.size(); i++) {
                 prepareStatement.setObject(i + 1, values.get(i));
             }
             prepareStatement.setObject(fieldsQty + 1, id);
             prepareStatement.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
+        ConnectionPool.POOL.release();
     }
 
     @Override
     public void delete(int id) {
-        try ( Connection connection = getDataSource().getConnection();
-                PreparedStatement prepareStatement = connection.prepareStatement(getDeleteByIdStatement())) {
+        Connection connection = ConnectionPool.POOL.getConnection();
+        try (PreparedStatement prepareStatement = connection.prepareStatement(getDeleteByIdStatement())) {
             prepareStatement.setInt(1, id);
             prepareStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ConnectionPool.POOL.release();
     }
 
     @Override
     public T get(int id) {
+        Connection connection = ConnectionPool.POOL.getConnection();
         try {
-            try (
-                    Connection connection = getDataSource().getConnection();
-                    PreparedStatement prepareStatement = connection.prepareStatement(getSelectByIdStatement())) {
+            try (PreparedStatement prepareStatement = connection.prepareStatement(getSelectByIdStatement())) {
                 prepareStatement.setInt(1, id);
                 try (ResultSet resultSet = prepareStatement.executeQuery()) {
                     if (resultSet.next()) {
@@ -161,12 +166,14 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            ConnectionPool.POOL.release();
         }
     }
 
     public List<T> getAll() {
+        Connection connection = ConnectionPool.POOL.getConnection();
         try {
-            Connection connection = getDataSource().getConnection();
             try (ResultSet resultSet = connection.createStatement().executeQuery(getSelectAllStatement())) {
                 List<T> resultList = new ArrayList<>();
                 while (resultSet.next()) {
@@ -178,14 +185,14 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
             e.printStackTrace();
             return null;
         } finally {
+            ConnectionPool.POOL.release();
         }
     }
 
     public int getMaxId() {
+        Connection connection = ConnectionPool.POOL.getConnection();
         String query = "SELECT MAX(id) FROM " + getTableName();
-        try (
-                Connection connection = getDataSource().getConnection();
-                ResultSet resultSet = connection.createStatement().executeQuery(query)) {
+        try (ResultSet resultSet = connection.createStatement().executeQuery(query)) {
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             }
@@ -193,6 +200,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
             e.printStackTrace();
             return 0;
         }
+        ConnectionPool.POOL.release();
         return 0;
     }
 

@@ -1,8 +1,9 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.DataSourceHolder;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,12 +28,18 @@ public class PhonetDaoTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ClassLoader loader = PhonetDaoTest.class.getClassLoader();
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(props.getProperty("driver"));
+        dataSource.setUrl(props.getProperty("url"));
+        dataSource.setUsername(props.getProperty("user"));
+        dataSource.setPassword(props.getProperty("password"));
+        DataSourceHolder.setDataSource(dataSource);
+        ClassLoader loader = DepartmentDaoTest.class.getClassLoader();
         File file = new File(loader.getResource("createDataBase").getFile());
         try {
             try {
                 Reader reader = new FileReader(file);
-                RunScript.execute(ConnectionPool.POOL.getConnection(), reader);
+                RunScript.execute(dataSource.getConnection(), reader);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

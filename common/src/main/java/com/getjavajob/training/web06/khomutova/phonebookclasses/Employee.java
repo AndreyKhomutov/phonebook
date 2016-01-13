@@ -8,7 +8,7 @@ public class Employee extends BaseEntity {
 
     private String name;
     private Date birthday;
-    private ArrayList<Phone> phones;
+    private ArrayList<Phone> phones; //todo list
     private ArrayList<Address> addresses;
     private String email;
     private String icq;
