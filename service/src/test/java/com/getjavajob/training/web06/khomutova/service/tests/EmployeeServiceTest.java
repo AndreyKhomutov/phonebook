@@ -2,6 +2,7 @@ package com.getjavajob.training.web06.khomutova.service.tests;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;

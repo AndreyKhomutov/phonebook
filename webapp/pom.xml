@@ -49,6 +49,12 @@
             <artifactId>jquery</artifactId>
             <version>${jquery}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.7.2</version>
+        </dependency>
     </dependencies>
 
 </project>

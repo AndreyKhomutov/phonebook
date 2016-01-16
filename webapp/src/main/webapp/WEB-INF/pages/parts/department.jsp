@@ -1,6 +1,7 @@
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Department" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.DepartmentService" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
+<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -9,10 +10,10 @@
 <jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
 <jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
 <jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
-<% DepartmentService departmentService = new DepartmentService();
+<%  DepartmentService departmentService = ApplicationContextProvider.getApplicationContext().getBean("DepartmentService", DepartmentService.class);
     int id = Integer.parseInt(request.getParameter("ID"));
     Department department = departmentService.get(id);
-    EmployeeService employeeService = new EmployeeService();
+    EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
 %>
 <div class="container">
     <div class="row">

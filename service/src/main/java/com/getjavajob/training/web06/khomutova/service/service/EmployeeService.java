@@ -4,15 +4,22 @@ import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.*;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service("EmployeeService")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class EmployeeService extends GenericService<Employee> {
 
     private AddressDao addressDao;
     private PhoneDao phoneDao;
 
+    @Autowired
     public EmployeeService(EmployeeDao dao, AddressDao addressDao, PhoneDao phoneDao) {
         super(dao);
         this.addressDao = addressDao;
@@ -30,10 +37,11 @@ public class EmployeeService extends GenericService<Employee> {
         return result;
     }
 
-    public List<Address> getAllAddresses() {
+        public List<Address> getAllAddresses() {
         return addressDao.getAll();
     }
 
+    @Transactional
     public List<Phone> getAllPhones() {
         return phoneDao.getAll();
     }

@@ -16,9 +16,9 @@
 <jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
 <jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
 
-<% ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
-    EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
-
+<%
+    EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
+    System.out.println(employeeService.getAll().size());
     int id = Integer.parseInt(request.getParameter("ID"));
     Employee employee = employeeService.get(id);
 %>

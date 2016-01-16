@@ -3,16 +3,23 @@ package com.getjavajob.training.web06.khomutova.service.service;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.*;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service ("DepartmentService")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class DepartmentService extends GenericService<Department> {
 
     private EmployeeDao employeeDao;
     private AddressDao addressDao;
     private PhoneDao phoneDao;
 
+   @Autowired
     public DepartmentService(DepartmentDao dao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
         super(dao);
         this.employeeDao = employeeDao;

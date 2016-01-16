@@ -3,13 +3,17 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 public class DepartmentDao extends GenericDao<Department> {
 
+    @Autowired
     public DepartmentDao(DataSource dataSource) {
         super(dataSource);
     }

@@ -1,13 +1,17 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 public class AddressDao extends GenericDao<Address> {
 
+    @Autowired
     public AddressDao(DataSource dataSource) {
         super(dataSource);
     }

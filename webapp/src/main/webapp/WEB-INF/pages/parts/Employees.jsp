@@ -2,6 +2,8 @@
 <%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Employee" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.context.support.FileSystemXmlApplicationContext" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>

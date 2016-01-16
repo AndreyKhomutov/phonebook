@@ -2,6 +2,7 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.sql.DataSource;

@@ -1,12 +1,10 @@
 package com.getjavajob.training.web06.khomutova.service.service;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.CrudDao;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.GenericDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class GenericService<T extends BaseEntity> implements CrudDao<T> {
@@ -20,55 +18,22 @@ public class GenericService<T extends BaseEntity> implements CrudDao<T> {
         this.dao = dao;
     }
 
+    @Transactional
     @Override
     public void add(T entity) {
-        Connection connection = ConnectionPool.POOL.getConnection();
-        try {
             dao.add(entity);
-            connection.commit();
-        } catch (SQLException e) {
-
-        } finally {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-
-            }
-        }
-        ConnectionPool.POOL.release();
     }
 
+    @Transactional
     @Override
     public void update(T entity) {
-        Connection connection = ConnectionPool.POOL.getConnection();
-        try {
             dao.update(entity);
-            connection.commit();
-        } catch (SQLException e) {//todo change to MyException
-        } finally {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-            }
-        }
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
-        Connection connection = ConnectionPool.POOL.getConnection();
-        try {
             dao.delete(id);
-            connection.commit();
-        } catch (SQLException e) {
-
-        } finally {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-
-            }
-        }
-        ConnectionPool.POOL.release();
     }
 
     @Override

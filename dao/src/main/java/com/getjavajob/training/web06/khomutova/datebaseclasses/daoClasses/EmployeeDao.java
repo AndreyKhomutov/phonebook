@@ -5,18 +5,22 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Repository
 public class EmployeeDao extends GenericDao<Employee> {
 
     private PhoneDao phoneDao;
     private DepartmentDao departmentDao;
     private AddressDao addressDao;
 
+    @Autowired
     public EmployeeDao(DataSource dataSource, PhoneDao phoneDao, DepartmentDao departmentDao, AddressDao addressDao) {
         super(dataSource);
         this.phoneDao = phoneDao;

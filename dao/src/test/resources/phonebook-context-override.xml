@@ -18,37 +18,7 @@
         <constructor-arg ref="dataSource" />
     </bean>
 
-    <bean id="EmployeeDao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao">
-        <constructor-arg ref="dataSource" />
-        <constructor-arg ref="AddressDao" />
-        <constructor-arg ref="DepartmentDao" />
-        <constructor-arg ref="PhoneDao" />
-    </bean>
-
-    <bean id="AddressDao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.AddressDao">
-        <constructor-arg ref="dataSource" />
-    </bean>
-
-    <bean id="DepartmentDao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.DepartmentDao">
-        <constructor-arg ref="dataSource" />
-    </bean>
-
-    <bean id="PhoneDao" class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao">
-        <constructor-arg ref="dataSource" />
-    </bean>
-
-    <bean id="EmployeeService" class="com.getjavajob.training.web06.khomutova.service.service.EmployeeService">
-        <constructor-arg ref="EmployeeDao" />
-        <constructor-arg ref="AddressDao" />
-        <constructor-arg ref="PhoneDao" />
-    </bean>
-
-    <bean id="DepartmentService" class="com.getjavajob.training.web06.khomutova.service.service.DepartmentService">
-        <constructor-arg ref="DepartmentDao" />
-        <constructor-arg ref="EmployeeDao" />
-        <constructor-arg ref="AddressDao" />
-        <constructor-arg ref="PhoneDao" />
-    </bean>
+   <context:component-scan base-package="com.getjavajob.training.web06"></context:component-scan>
 
     <bean id="applicationContextProvider" class="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider"></bean>
 

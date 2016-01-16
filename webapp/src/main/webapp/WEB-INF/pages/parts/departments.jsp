@@ -44,13 +44,13 @@
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="/DeleteDepartmentServlet?ID=${department.id}">Удалить</a>
+                                <a href="/DeleteDepartmentServlet?ID=<%=department.getId()%>">Удалить</a>
                             </li>
-                            <li><a href="/department?ID=${department.id}">Просмотреть</a></li>
-                            <li><a href="/updateDepartment?ID=${department.id}">Редактировать</a></li>
+                            <li><a href="/department?ID=<%=department.getId()%>">Просмотреть</a></li>
+                            <li><a href="/updateDepartment?ID=<%=department.getId()%>">Редактировать</a></li>
                             <% if (session.getAttribute("profileType") != null && session.getAttribute("profileType").equals("admin")) {
                             %>
-                            <li><a href="/DeleteDepartmentServlet?ID=${department.id}">Удалить</a></li>
+                            <li><a href="/DeleteDepartmentServlet?ID=<%=department.getId()%>">Удалить</a></li>
                             <%
                                 }
                             %>

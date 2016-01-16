@@ -1,13 +1,17 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 public class PhoneDao extends GenericDao<Phone> {
 
+    @Autowired
     public PhoneDao(DataSource dataSource) {
         super(dataSource);
     }
