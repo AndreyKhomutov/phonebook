@@ -1,40 +1,37 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.DataSourceHolder;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.DepartmentDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
+import com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.h2.tools.RunScript;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DepartmentDaoTest {
 
-    private DepartmentDao departmentDao = new DepartmentDao();
+    @Autowired
+
+    private DepartmentDao departmentDao;
 
     @Before
     public void importDataSet() {
-        Properties props = new Properties();
-        try {
-            props.load(this.getClass().getClassLoader()
-                    .getResourceAsStream("phonebook.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(props.getProperty("driver"));
-        dataSource.setUrl(props.getProperty("url"));
-        dataSource.setUsername(props.getProperty("user"));
-        dataSource.setPassword(props.getProperty("password"));
-        DataSourceHolder.setDataSource(dataSource);
-               ClassLoader loader = DepartmentDaoTest.class.getClassLoader();
+        BasicDataSource dataSource = ApplicationContextProvider.getApplicationContext().getBean("dataSource", BasicDataSource.class);
+        ClassLoader loader = DepartmentDaoTest.class.getClassLoader();
         File file = new File(loader.getResource("createDataBase").getFile());
         try {
             try {

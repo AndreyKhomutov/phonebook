@@ -7,6 +7,11 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DepartmentServiceTest {
     private DepartmentDao imitatorDao = mock(DepartmentDao.class);
-    private DepartmentService departmentService = new DepartmentService();
+
+    @Autowired
+    private DepartmentService departmentService;
 
     @Before
     public void init() {
@@ -70,7 +81,6 @@ public class DepartmentServiceTest {
     public void getEmployees() {
         DepartmentDao departmentImitation = mock(DepartmentDao.class);
         EmployeeDao emloyeeImitation = mock(EmployeeDao.class);
-        DepartmentService departmentService = new DepartmentService();
         departmentService.setDao(departmentImitation);
         Department it = new Department();
         it.setId(1);

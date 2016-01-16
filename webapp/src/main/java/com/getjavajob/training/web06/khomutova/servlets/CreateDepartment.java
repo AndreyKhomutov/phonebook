@@ -4,6 +4,7 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +21,12 @@ public class CreateDepartment extends HttpServlet {
         Department department = new Department();
         department.setName(request.getParameter("name"));
 
-        EmployeeService employeeService = new EmployeeService();
+        EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
         int bossID = Integer.parseInt(request.getParameter("boss")) + 1;
         Employee boss = employeeService.get(bossID);
         department.setDepartmentBoss(boss);
 
-        DepartmentService departmentService = new DepartmentService();
+        DepartmentService departmentService = ApplicationContextProvider.getApplicationContext().getBean("DepartmentService", DepartmentService.class);
         departmentService.add(department);
 
         response.sendRedirect("/departments");

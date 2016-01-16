@@ -6,11 +6,23 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeDao extends GenericDao<Employee> {
+
+    private PhoneDao phoneDao;
+    private DepartmentDao departmentDao;
+    private AddressDao addressDao;
+
+    public EmployeeDao(DataSource dataSource, PhoneDao phoneDao, DepartmentDao departmentDao, AddressDao addressDao) {
+        super(dataSource);
+        this.phoneDao = phoneDao;
+        this.departmentDao = departmentDao;
+        this.addressDao = addressDao;
+    }
 
     @Override
     protected String getTableName() {
@@ -46,7 +58,6 @@ public class EmployeeDao extends GenericDao<Employee> {
     private ArrayList<Phone> getPhones(String phonesDAO) {
         String[] phonesString = phonesDAO.split(" ");
         ArrayList<Phone> phones = new ArrayList<>();
-        PhoneDao phoneDao = new PhoneDao();
         for (String phone : phonesString) {
             Phone phone1 = phoneDao.get(Integer.parseInt(phone));
             phones.add(phone1);
@@ -61,7 +72,6 @@ public class EmployeeDao extends GenericDao<Employee> {
     }
 
     private Department makeDepartment(int id) {
-        DepartmentDao departmentDao = new DepartmentDao();
         Department department = new Department();
         department.setId(id);
         department.setName(departmentDao.get(id).getName());
@@ -69,7 +79,6 @@ public class EmployeeDao extends GenericDao<Employee> {
     }
 
     private ArrayList<Address> makeAddress(String id) {
-        AddressDao addressDao = new AddressDao();
         ArrayList<Address> addresses = new ArrayList<>();
         String[] addressesDAO = id.split(" ");
         for (String addressID : addressesDAO) {

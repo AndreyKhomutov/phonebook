@@ -29,7 +29,6 @@ public class Login extends HttpServlet {
         }
 
         if (userID.equals(user) || adminID.equals(user) && password.equals(pwd)) {
-            System.out.println("Bingo1");
             HttpSession session = request.getSession();
             if (userID.equals(user)) {
                 session.setAttribute("user", userName1);

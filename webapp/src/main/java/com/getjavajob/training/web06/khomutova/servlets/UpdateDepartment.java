@@ -4,6 +4,7 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,7 @@ public class UpdateDepartment extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        DepartmentService departmentService = new DepartmentService();
+        DepartmentService departmentService = ApplicationContextProvider.getApplicationContext().getBean("DepartmentService", DepartmentService.class);
         Department department = new Department();
         int id = Integer.parseInt(request.getParameter("ID"));
         Department oldDepartment = departmentService.get(id);
@@ -26,7 +27,7 @@ public class UpdateDepartment extends HttpServlet {
 
         if (request.getParameter("boss") != null) {
             int bossID = Integer.parseInt(request.getParameter("boss")) + 1;
-            EmployeeService employeeService = new EmployeeService();
+            EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
             Employee boss = employeeService.get(bossID);
             department.setDepartmentBoss(boss);
         } else {

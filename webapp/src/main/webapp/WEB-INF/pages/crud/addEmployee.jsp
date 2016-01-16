@@ -5,6 +5,8 @@
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.DepartmentService" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -78,7 +80,8 @@
                                                    value="Введите email">
                                         </div>
                                     </div>
-                                    <% DepartmentService departmentService = new DepartmentService();
+                                    <% ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
+                                        DepartmentService departmentService = (DepartmentService) ctx.getBean("DepartmentService");
                                         List<Department> departments = departmentService.getAll();
                                         request.setAttribute("departments", departments);
                                     %>

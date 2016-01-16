@@ -4,10 +4,15 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DepartmentDao extends GenericDao<Department> {
+
+    public DepartmentDao(DataSource dataSource) {
+        super(dataSource);
+    }
 
     @Override
     protected String getTableName() {

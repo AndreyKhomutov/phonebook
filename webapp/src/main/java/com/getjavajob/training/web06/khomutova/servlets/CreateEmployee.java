@@ -5,6 +5,7 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,12 +35,14 @@ public class CreateEmployee extends HttpServlet {
         employee.setIcq(request.getParameter("ICQ"));
         employee.setSkype(request.getParameter("skype"));
         employee.setEmail(request.getParameter("email"));
-        EmployeeService employeeService = new EmployeeService();
+
+        EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
+
         int bossID = Integer.parseInt(request.getParameter("boss")) + 1;
         Employee boss = employeeService.get(bossID);
         employee.setBoss(boss);
 
-        DepartmentService departmentService = new DepartmentService();
+        DepartmentService departmentService = ApplicationContextProvider.getApplicationContext().getBean("DepartmentService", DepartmentService.class);
         employee.setDepartment(departmentService.getAll().get(Integer.parseInt(request.getParameter("department"))));
 
         employee.setAddresses(makeAddress(request.getParameterValues("addresses[]")));
@@ -50,7 +53,8 @@ public class CreateEmployee extends HttpServlet {
     }
 
     private ArrayList<Phone> makePhones(String[] parameterValues) {
-        EmployeeService employeeService = new EmployeeService();
+        ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
+        EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
         List<Phone> phoneList = employeeService.getAllPhones();
         ArrayList<Phone> result = new ArrayList<>();
         for (String string : parameterValues) {
@@ -61,7 +65,8 @@ public class CreateEmployee extends HttpServlet {
     }
 
     private ArrayList<Address> makeAddress(String[] addreses) {
-        EmployeeService employeeService = new EmployeeService();
+        ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
+        EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
         List<Address> addressList = employeeService.getAllAddresses();
         ArrayList<Address> result = new ArrayList<>();
         for (String string : addreses) {

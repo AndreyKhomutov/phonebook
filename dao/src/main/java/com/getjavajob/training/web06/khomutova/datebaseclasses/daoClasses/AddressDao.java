@@ -2,10 +2,15 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddressDao extends GenericDao<Address> {
+
+    public AddressDao(DataSource dataSource) {
+        super(dataSource);
+    }
 
     @Override
     protected String getTableName() {

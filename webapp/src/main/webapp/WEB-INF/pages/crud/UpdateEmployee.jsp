@@ -5,6 +5,8 @@
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.DepartmentService" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -12,7 +14,8 @@
 <body>
 <jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
 <%
-    EmployeeService employeeService = new EmployeeService();
+    ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
+    EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
     Employee employee = employeeService.get(Integer.parseInt(request.getParameter("ID")));
 %>
 <div class="container">
@@ -88,7 +91,7 @@
                                                    value=<%=employee.getEmail()%>>
                                         </div>
                                     </div>
-                                    <% DepartmentService departmentService = new DepartmentService();
+                                    <% DepartmentService departmentService = (DepartmentService) ctx.getBean("DepartmentService");
                                         List<Department> departments = departmentService.getAll();
                                         request.setAttribute("departments", departments);
                                     %>

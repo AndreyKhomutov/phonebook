@@ -1,11 +1,10 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.ConnectionPool;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.BaseEntity;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
-import static com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.DataSourceHolder.getDataSource;
 
 
+import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
-
+    private DataSource dataSource;
 
     protected abstract String getTableName();
 
@@ -33,7 +32,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
     public void add(T entity) {
         Class<?> clazz = entity.getClass();
         Field[] fields = clazz.getDeclaredFields();
-        try (Connection connection = getDataSource().getConnection();
+        try (Connection connection = this.dataSource.getConnection();
          PreparedStatement prepareStatement = connection.prepareStatement(getInsertStatement())) {
             for (int i = 0; i < fields.length; i++) {
                 Method getMethod = null;
@@ -119,7 +118,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     private void updateField(List<Object> values, int id) {
        int fieldsQty = values.size();
-        try (Connection connection = getDataSource().getConnection();
+        try (Connection connection = this.dataSource.getConnection();
              PreparedStatement prepareStatement = connection.prepareStatement(getUpdateByIdStatement())) {
             for (int i = 0; i < values.size(); i++) {
                 prepareStatement.setObject(i + 1, values.get(i));
@@ -133,7 +132,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     @Override
     public void delete(int id) {
-        try ( Connection connection = getDataSource().getConnection();
+        try ( Connection connection = this.dataSource.getConnection();
                 PreparedStatement prepareStatement = connection.prepareStatement(getDeleteByIdStatement())) {
             prepareStatement.setInt(1, id);
             prepareStatement.executeUpdate();
@@ -146,7 +145,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
     public T get(int id) {
         try {
             try (
-                    Connection connection = getDataSource().getConnection();
+                    Connection connection = this.dataSource.getConnection();
                     PreparedStatement prepareStatement = connection.prepareStatement(getSelectByIdStatement())) {
                 prepareStatement.setInt(1, id);
                 try (ResultSet resultSet = prepareStatement.executeQuery()) {
@@ -166,7 +165,7 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
 
     public List<T> getAll() {
         try {
-            Connection connection = getDataSource().getConnection();
+            Connection connection = this.dataSource.getConnection();
             try (ResultSet resultSet = connection.createStatement().executeQuery(getSelectAllStatement())) {
                 List<T> resultList = new ArrayList<>();
                 while (resultSet.next()) {
@@ -181,10 +180,14 @@ public abstract class GenericDao<T extends BaseEntity> implements CrudDao<T> {
         }
     }
 
+    public GenericDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public int getMaxId() {
         String query = "SELECT MAX(id) FROM " + getTableName();
         try (
-                Connection connection = getDataSource().getConnection();
+                Connection connection = this.dataSource.getConnection();
                 ResultSet resultSet = connection.createStatement().executeQuery(query)) {
             if (resultSet.next()) {
                 return resultSet.getInt(1);

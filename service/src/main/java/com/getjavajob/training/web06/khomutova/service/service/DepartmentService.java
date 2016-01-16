@@ -1,7 +1,6 @@
 package com.getjavajob.training.web06.khomutova.service.service;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.DepartmentDao;
-import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.*;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 
@@ -9,13 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentService extends GenericService<Department> {
-    public DepartmentService() {
-        setDao(new DepartmentDao());
+
+    private EmployeeDao employeeDao;
+    private AddressDao addressDao;
+    private PhoneDao phoneDao;
+
+    public DepartmentService(DepartmentDao dao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
+        super(dao);
+        this.employeeDao = employeeDao;
+        this.addressDao = addressDao;
+        this.phoneDao = phoneDao;
     }
 
+
     public List<Employee> getEmployees(Department department, EmployeeDao employeeDao) {//todo employeeDAO
-        EmployeeService employeeService = new EmployeeService();
-        employeeService.setDao(employeeDao);
+        EmployeeService employeeService = new EmployeeService(employeeDao, addressDao, phoneDao);
         List<Employee> allEmployees = employeeService.getAll();
         List<Employee> result = new ArrayList<>();
         for (Employee employee : allEmployees) {

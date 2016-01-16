@@ -3,6 +3,8 @@
 <%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Phone" %>
 <%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -41,7 +43,8 @@
                                         </div>
                                     </div>
 
-                                    <% EmployeeService employeeService = new EmployeeService();
+                                    <% ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
+                                        EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
                                         List<Address> addresses = employeeService.getAllAddresses();
                                         request.setAttribute("addresses", addresses);
                                         List<Phone> phones = employeeService.getAllPhones();

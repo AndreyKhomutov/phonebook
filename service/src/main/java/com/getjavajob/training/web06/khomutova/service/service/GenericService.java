@@ -12,11 +12,11 @@ import java.util.List;
 public class GenericService<T extends BaseEntity> implements CrudDao<T> {
     protected GenericDao<T> dao;
 
-    public GenericDao<T> getDao() {
-        return dao;
+    public void setDao(GenericDao<T> dao) {
+        this.dao = dao;
     }
 
-    public void setDao(GenericDao<T> dao) {
+    public GenericService(GenericDao<T> dao) {
         this.dao = dao;
     }
 
