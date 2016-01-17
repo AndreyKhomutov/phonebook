@@ -1,26 +1,17 @@
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Department" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.service.service.DepartmentService" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <body>
-<jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
-<%  DepartmentService departmentService = ApplicationContextProvider.getApplicationContext().getBean("DepartmentService", DepartmentService.class);
-    int id = Integer.parseInt(request.getParameter("ID"));
-    Department department = departmentService.get(id);
-    EmployeeService employeeService = ApplicationContextProvider.getApplicationContext().getBean("EmployeeService", EmployeeService.class);
-%>
+<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/searchform.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h1 class="panel-title">Имя:  <%= department.getName() %>
+                    <h1 class="panel-title">Имя:  ${department.name}
                     </h1>
                 </div>
                 <div class="panel-body">
@@ -33,18 +24,18 @@
                                 <tbody>
                                 <tr>
                                     <td>Департамент:</td>
-                                    <td><%=department.getName() %>
+                                    <td>${department.name}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Начальник</td>
-                                    <td><%=employeeService.get(department.getId()).getName() %>
+                                    <td>${boss.name}
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                             <tr>
-                                <p><a class="btn btn-default" href="/departments" role="button">Назад &raquo;</a></p>
+                                <p><a class="btn btn-default" href="/showDepartments" role="button">Назад &raquo;</a></p>
                             </tr>
                         </div>
                     </div>

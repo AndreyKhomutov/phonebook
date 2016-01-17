@@ -27,7 +27,6 @@ public class DepartmentService extends GenericService<Department> {
         this.phoneDao = phoneDao;
     }
 
-
     public List<Employee> getEmployees(Department department, EmployeeDao employeeDao) {//todo employeeDAO
         EmployeeService employeeService = new EmployeeService(employeeDao, addressDao, phoneDao);
         List<Employee> allEmployees = employeeService.getAll();
@@ -35,18 +34,6 @@ public class DepartmentService extends GenericService<Department> {
         for (Employee employee : allEmployees) {
             if (employee.getDepartment().getId() == department.getId()) {
                 result.add(employee);
-            }
-        }
-        return result;
-    }
-
-    public ArrayList<Department> searchDepartment(String parameter) {
-        List<Department> departments = getAll();
-        System.out.println(departments.size());
-        ArrayList<Department> result = new ArrayList<>();
-        for (int i = 0; i < departments.size(); i++) {
-            if (departments.get(i).getName().toLowerCase().toLowerCase().contains(parameter)){
-                result.add(departments.get(i));
             }
         }
         return result;

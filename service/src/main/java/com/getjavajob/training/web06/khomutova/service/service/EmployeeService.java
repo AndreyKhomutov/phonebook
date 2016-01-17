@@ -59,4 +59,12 @@ public class EmployeeService extends GenericService<Employee> {
         }
         return result;
     }
+
+    @Override
+    public Employee get(int id) {
+        Employee employee=dao.get(id);
+        Employee boss=dao.get(employee.getBoss().getId());
+        employee.setBoss(boss);
+        return employee;
+    }
 }

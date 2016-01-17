@@ -10,21 +10,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-<jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
-<%
-    ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
-    DepartmentService departmentService = (DepartmentService) ctx.getBean("DepartmentService");
-    Department department = departmentService.get(Integer.parseInt(request.getParameter("ID")));
-%>
+<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
-            <h3>Редактировать департамент <%=department.getName()%>
+            <h3>Редактировать департамент ${department.name}
             </h3>
-
             <p></p>
         </div>
-
         <div class="container">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -32,36 +25,25 @@
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-body">
-
-                                <form accept-charset="UTF-8" action="updateDepartmentServlet" method="post"
+                                <form accept-charset="UTF-8" action="doUpdateDepartment" method="post"
                                       class="form-horizontal"
                                       role="form">
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">ID</label>
-
                                         <div class="col-sm-10">
                                             <input type="text" name="ID" class="form-control" id="ID"
-                                                   value=<%=department.getId()%>>
+                                                   value=${department.id}>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">Имя</label>
-
                                         <div class="col-sm-10">
                                             <input type="text" name="name" class="form-control" id="name"
-                                                   value=<%=department.getName()%>>
+                                                   value=${department.name}>
                                         </div>
                                     </div>
-
-                                    <% EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
-                                        List<Employee> employees = employeeService.getAll();
-                                        request.setAttribute("employees", employees);
-                                    %>
-
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Руководитель</label>
-
                                         <div class="col-sm-10">
                                             <select value class="form-control" name="boss">
                                                 <c:forEach items="${employees}" var="employees"
@@ -71,12 +53,9 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <input class="btn btn-success btn btn-lg btn-success btn-block" name="commit"
                                            type="submit" value="Сохранить">
-
                                 </form>
-
                             </div>
                         </div>
                     </div>

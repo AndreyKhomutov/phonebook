@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <body>
-<jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/searchform.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 </body>
 </html>

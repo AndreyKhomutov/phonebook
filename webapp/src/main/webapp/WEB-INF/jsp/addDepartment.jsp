@@ -1,28 +1,17 @@
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Address" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Employee" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Phone" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
-<%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <body>
-
-<jsp:include page="/WEB-INF/pages/parts/header.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/searchform.jsp"/>
-<jsp:include page="/WEB-INF/pages/parts/lists.jsp"/>
-
+<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/searchform.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
-            <h1>Создать сотрудника</h1>
-
+            <h1>Создать департамент</h1>
             <p></p>
         </div>
-
         <div class="container">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -30,8 +19,7 @@
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-body">
-
-                                <form accept-charset="UTF-8" action="CreateDepartment" method="post"
+                                <form accept-charset="UTF-8" action="/doAddDepartment" method="post"
                                       class="form-horizontal"
                                       role="form">
                                     <div class="form-group">
@@ -42,17 +30,6 @@
                                                    value="Введите имя">
                                         </div>
                                     </div>
-
-                                    <% ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
-                                        EmployeeService employeeService = (EmployeeService) ctx.getBean("EmployeeService");
-                                        List<Address> addresses = employeeService.getAllAddresses();
-                                        request.setAttribute("addresses", addresses);
-                                        List<Phone> phones = employeeService.getAllPhones();
-                                        request.setAttribute("phones", phones);
-                                        List<Employee> employees = employeeService.getAll();
-                                        request.setAttribute("employees", employees);
-
-                                    %>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Руководитель</label>
 

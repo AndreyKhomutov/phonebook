@@ -2,10 +2,9 @@
 <html>
 <body>
 <div class="jumbotron">
-    <form action="search" method="post">
+    <form action="doSearch" method="post">
         <div class="container">
-            <h2>Поиск по сотрудникам и департементам</h2>
-
+            <h2>Поиск по сотрудникам</h2>
             <div class="col-lg-6">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control">

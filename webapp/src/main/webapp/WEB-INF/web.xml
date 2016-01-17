@@ -7,141 +7,15 @@
         <session-timeout>2</session-timeout>
     </session-config>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:phonebook-context.xml</param-value>
-    </context-param>
-
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
     <servlet>
-        <servlet-name>index</servlet-name>
-        <jsp-file>/WEB-INF/pages/index.jsp</jsp-file>
+        <servlet-name>phonebook</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>index</servlet-name>
+        <servlet-name>phonebook</servlet-name>
         <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Employees</servlet-name>
-        <jsp-file>/WEB-INF/pages/parts/employees.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Employees</servlet-name>
-        <url-pattern>/employees</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Departments</servlet-name>
-        <jsp-file>/WEB-INF/pages/parts/departments.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Departments</servlet-name>
-        <url-pattern>/departments</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ShowEmployee</servlet-name>
-        <jsp-file>/WEB-INF/pages/parts/employee.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ShowEmployee</servlet-name>
-        <url-pattern>/employee</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ShowDepartment</servlet-name>
-        <jsp-file>/WEB-INF/pages/parts/department.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ShowDepartment</servlet-name>
-        <url-pattern>/department</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>addEmployee</servlet-name>
-        <jsp-file>/WEB-INF/pages/crud/addEmployee.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addEmployee</servlet-name>
-        <url-pattern>/addEmployee</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>addDepartment</servlet-name>
-        <jsp-file>/WEB-INF/pages/crud/addDepartment.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addDepartment</servlet-name>
-        <url-pattern>/addDepartment</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>deleteEmployee</servlet-name>
-        <servlet-class>com.getjavajob.training.web06.khomutova.servlets.DeleteEmployee</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteEmployee</servlet-name>
-        <url-pattern>/DeleteEmployeeServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>deleteDepartment</servlet-name>
-        <servlet-class>com.getjavajob.training.web06.khomutova.servlets.DeleteDepartment</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>deleteDepartment</servlet-name>
-        <url-pattern>/DeleteDepartmentServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>searchEmployee</servlet-name>
-        <jsp-file>/WEB-INF/pages/search/search.jsp</jsp-file>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>searchEmployee</servlet-name>
-        <url-pattern>/search</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UpdateEmployee</servlet-name>
-        <jsp-file>/WEB-INF/pages/crud/updateEmployee.jsp</jsp-file>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UpdateEmployee</servlet-name>
-        <url-pattern>/updateEmployee</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UpdateDepartment</servlet-name>
-        <jsp-file>/WEB-INF/pages/crud/updateDepartment.jsp</jsp-file>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UpdateDepartment</servlet-name>
-        <url-pattern>/updateDepartment</url-pattern>
     </servlet-mapping>
 
     <filter>

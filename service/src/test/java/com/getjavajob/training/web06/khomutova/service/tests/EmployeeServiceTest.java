@@ -48,6 +48,10 @@ public class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("Employee1");
+        Employee boss=new Employee();
+        boss.setId(1);
+        boss.setName("Test");
+        employee.setBoss(employee);
         when(imitatorDao.get(1)).thenReturn(employee);
         assertEquals("Employee1", employeeService.get(1).getName());
     }
