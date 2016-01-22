@@ -31,7 +31,7 @@
                             <li><a href="/updateEmployee?ID=${employee.id}">Редактировать</a></li>
                             <% if (session.getAttribute("profileType") != null && session.getAttribute("profileType").equals("admin")) {
                             %>
-                            <li><a href="/deleteEmployee?ID=${department.id}">Удалить</a></li>
+                            <li><a href="/deleteEmployee?ID=${employee.id}">Удалить</a></li>
                             <%
                                 }
                             %>

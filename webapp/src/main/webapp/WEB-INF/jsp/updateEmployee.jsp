@@ -3,13 +3,11 @@
 <!DOCTYPE html>
 <html>
 <body>
-<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
             <h3>Редактировать сотрудника ${employee.name}
             </h3>
-
             <p></p>
         </div>
         <div class="container">
