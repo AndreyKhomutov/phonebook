@@ -2,6 +2,7 @@ package com.getjavajob.training.web06.khomutova.service.service;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.*;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,15 @@ import java.util.List;
 
 @Service("EmployeeService")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class EmployeeService extends GenericService<Employee> {
+public class EmployeeService implements CrudDao<Employee>  {
 
+    private EmployeeDao dao;
     private AddressDao addressDao;
     private PhoneDao phoneDao;
 
     @Autowired
     public EmployeeService(EmployeeDao dao, AddressDao addressDao, PhoneDao phoneDao) {
-        super(dao);
+        this.dao=dao;
         this.addressDao = addressDao;
         this.phoneDao = phoneDao;
     }
@@ -60,11 +62,39 @@ public class EmployeeService extends GenericService<Employee> {
         return result;
     }
 
+    @Transactional
+    @Override
+    public void add(Employee entity) {
+        dao.add(entity);
+    }
+
+    @Transactional
+    @Override
+    public void update(Employee entity) {
+       dao.update(entity);
+    }
+
+    @Transactional
+    @Override
+    public void delete(int id) {
+       dao.delete(id);
+    }
+
+    public EmployeeDao getDao() {
+        return dao;
+    }
+
+    public void setDao(EmployeeDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public Employee get(int id) {
-        Employee employee=dao.get(id);
-        Employee boss=dao.get(employee.getBoss().getId());
-        employee.setBoss(boss);
-        return employee;
+        return dao.get(id);
+    }
+
+    @Override
+    public List<Employee> getAll() {
+        return dao.getAll();
     }
 }

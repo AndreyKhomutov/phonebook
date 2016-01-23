@@ -1,7 +1,27 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
-public class Department extends BaseEntity {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "department")
+public class Department {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "departmentID")
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Column (name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "employeeID")
     private Employee departmentBoss;
 
     public String getName() {

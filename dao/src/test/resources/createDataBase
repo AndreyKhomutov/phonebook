@@ -3,44 +3,52 @@ drop table IF EXISTS employee;
 drop table IF EXISTS department;
 drop table IF EXISTS address;
 drop table IF EXISTS phone;
+drop table IF EXISTS employee_has_addresses;
+drop table IF EXISTS employee_has_phones;
 
 create table employee(
-    id int primary key auto_increment,
+    employeeID int primary key auto_increment,
     name varchar(120) not null,
     birthday datetime not null,
-    phones varchar(120) not null,
     icq varchar(20) not null,
     skype varchar(50) not null,
     email varchar(50) not null,
     boss int not null,
-    department int not null,
-    addresses varchar(50) not null);
+    departmentID int not null);
+create table employee_has_addresses(
+    employeeID int,
+    addressID int,
+    PRIMARY KEY (employeeID, addressID));
+create table employee_has_phones(
+    employeeID int,
+    phoneID int,
+    PRIMARY KEY (employeeID, phoneID));
 create table department(
-    id int primary key auto_increment,
+    departmentID int primary key auto_increment,
     name varchar(120) not null,
-    boss int not null);
+    employeeID int not null);
 create table phone(
-    id int primary key auto_increment,
+    phoneID int primary key auto_increment,
     number varchar(45) not null,
     type varchar(45) not null);
 create table address(
-    id int primary key auto_increment,
+    addressID int primary key auto_increment,
     city varchar(45) not null,
     street varchar(45) not null,
     apartment int not null,
     postal int not null,
     type varchar(45) not null);
 insert into employee
-    (name, birthday, phones, boss, skype, email, icq, department, addresses)
+    (name, birthday, icq, skype, email, boss, departmentID)
     values
-    ('Khomutov Andrey', '1980-01-05 00:00:00', '1 2', '123456789', 'AndreySkype22', 'ddd@gmail.com',
-    '2', '1', '1 3'),
-        ('Ivanov Andrey', '1980-01-05 00:00:00', '1 2', '123456789', 'AndreySkype22', 'ddd@gmail.com',
-        '2', '1', '1 3');
+    ('Andrey', '1980-01-05 00:00:00', '11111111', 'AndreySkype22', 'ddd@gmail.com',
+    2, 1),
+    ('Sergey', '1980-01-05 00:00:00', '222222222', 'SergeySkype22', 'sergey@gmail.com',
+        1, 2);
 insert into department
-    (name, boss)
+    (name, employeeID)
 values
-    ('IT', '1'), ('COUNTING', '2'), ('ITSupport', '1');
+    ('IT', 1), ('COUNTING', 2), ('ITSupport', 1);
 insert into address
     (city, street, apartment, postal, type)
 values
@@ -56,4 +64,16 @@ values
     ('+8123221234', 'job'),
     ('+79652772984', 'home'),
     ('+79642772984', 'home');
+insert into employee_has_addresses
+    (employeeID, addressID)
+values
+    (1, 1),
+    (1, 2),
+    (2, 2);
+insert into employee_has_phones
+    (employeeID, phoneID)
+values
+    (1, 1),
+    (1, 2),
+    (2, 2);
 

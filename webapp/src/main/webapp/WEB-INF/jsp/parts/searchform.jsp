@@ -40,11 +40,11 @@
                         filter: request.term
                     },
 
-//                    success: function (data) {
-//                        response($.map(data, function (employee, i) {
-//                            return {value: employee.name, label: employee.name + ' ' + employee.email}
-//                        }));
-//                    },
+                    success: function (data) {
+                        response($.map(data, function (employee, i) {
+                            return {value: employee.name, label: employee.name + ' ' + employee.email}
+                        }));
+                    },
                     success: function (data) {
                         s='';
                         s+='<table class="table">';

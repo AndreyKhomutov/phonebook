@@ -37,9 +37,16 @@ public class SearchController {
 
             @Override
             public boolean evaluate(Employee employee) {
-                return employee.getName().contains(filter) || employee.getEmail().contains(filter) || employee.getSkype().contains(filter) ;
+                return employee.getName().contains(filter) || employee.getEmail().contains(filter) || employee.getSkype().contains(filter);
             }
         });
+        System.out.println(emps.size());
+        for (Employee employee: emps){
+            employee.setBoss(null);
+            employee.setPhones(null);
+            employee.setAddresses(null);
+            employee.setDepartment(null);
+        }
         return emps;
     }
 }

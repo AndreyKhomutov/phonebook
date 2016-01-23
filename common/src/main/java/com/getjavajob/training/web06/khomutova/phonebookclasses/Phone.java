@@ -1,8 +1,20 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
-public class Phone extends BaseEntity {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "phone")
+public class Phone {
+
     private String number;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private EntityType entityType;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "phoneID")
+    private int id;
 
     public String getNumber() {
         return number;

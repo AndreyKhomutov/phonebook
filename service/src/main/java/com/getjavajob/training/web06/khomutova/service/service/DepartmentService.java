@@ -13,18 +13,27 @@ import java.util.List;
 
 @Service ("DepartmentService")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class DepartmentService extends GenericService<Department> {
+public class DepartmentService implements CrudDao<Department>  {
 
+    private DepartmentDao dao;
     private EmployeeDao employeeDao;
     private AddressDao addressDao;
     private PhoneDao phoneDao;
 
    @Autowired
     public DepartmentService(DepartmentDao dao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
-        super(dao);
+        this.dao=dao;
         this.employeeDao = employeeDao;
         this.addressDao = addressDao;
         this.phoneDao = phoneDao;
+    }
+
+    public DepartmentDao getDao() {
+        return dao;
+    }
+
+    public void setDao(DepartmentDao dao) {
+        this.dao = dao;
     }
 
     public List<Employee> getEmployees(Department department, EmployeeDao employeeDao) {//todo employeeDAO
@@ -37,5 +46,32 @@ public class DepartmentService extends GenericService<Department> {
             }
         }
         return result;
+    }
+
+    @Transactional
+    @Override
+    public void add(Department entity) {
+        dao.add(entity);
+    }
+
+    @Transactional
+    @Override
+    public void update(Department entity) {
+       dao.update(entity);
+    }
+    @Transactional
+    @Override
+    public void delete(int id) {
+      dao.delete(id);
+    }
+
+    @Override
+    public Department get(int id) {
+        return dao.get(id);
+    }
+
+    @Override
+    public List<Department> getAll() {
+        return dao.getAll();
     }
 }

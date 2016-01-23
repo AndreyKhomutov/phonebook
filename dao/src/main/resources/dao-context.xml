@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:property-placeholder location="classpath:phonebookTest.properties" />
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="DriverClassName" value="${test.driver}" />
-        <property name="Url" value="${test.url}" />
-        <property name="Username" value="${test.user}" />
-        <property name="Password" value="${test.password}" />
-    </bean>
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/phonebook"  expected-type="javax.sql.DataSource" />
+
+    <context:component-scan base-package="com.getjavajob.training.web06"/>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg ref="dataSource" />
@@ -38,8 +40,8 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <context:component-scan base-package="com.getjavajob.training.web06"></context:component-scan>
+    <tx:annotation-driven/>
 
-    <bean id="applicationContextProvider" class="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider"></bean>
+    <mvc:annotation-driven />
 
 </beans>

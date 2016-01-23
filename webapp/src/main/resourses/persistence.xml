@@ -1,0 +1,13 @@
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="default">
+      <class>com.getjavajob.training.web06.khomutova.phonebookclasses.Address</class>
+      <class>com.getjavajob.training.web06.khomutova.phonebookclasses.Department</class>
+      <class>com.getjavajob.training.web06.khomutova.phonebookclasses.Employee</class>
+      <class>com.getjavajob.training.web06.khomutova.phonebookclasses.Phone</class>
+
+      <properties>
+         <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+         <property name="hibernate.hdm2dd1.auto" value="update"/>
+      </properties>
+   </persistence-unit>
+</persistence>

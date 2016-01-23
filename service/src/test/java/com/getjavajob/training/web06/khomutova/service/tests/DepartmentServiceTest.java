@@ -32,6 +32,7 @@ public class DepartmentServiceTest {
 
     @Before
     public void init() {
+
         departmentService.setDao(imitatorDao);
     }
 

@@ -1,42 +1,50 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
+
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.CrudDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
 
 @Repository
-public class PhoneDao extends GenericDao<Phone> {
+public class PhoneDao implements CrudDao<Phone> {
 
     @Autowired
-    public PhoneDao(DataSource dataSource) {
-        super(dataSource);
+    private EntityManager entityManager;
+
+    @Override
+    public void add(Phone entity) {
+        entityManager.merge(entity);
     }
 
     @Override
-    protected String getTableName() {
-        return "phone";
+    public void update(Phone entity) {
+        entityManager.merge(entity);
     }
 
     @Override
-    protected String getInsertStatement() {
-        return "INSERT INTO " + getTableName() + "(number, type) VALUES (?, ?)";
+    public void delete(int id) {
+        Phone phone = entityManager.find(Phone.class, id);
+        entityManager.remove(phone);
+
     }
 
     @Override
-    protected String getUpdateByIdStatement() {
-        return "UPDATE " + getTableName() + " SET number = ?,  type = ? WHERE id =?";
+    public Phone get(int id) {
+        return entityManager.find(Phone.class, id);
     }
 
     @Override
-    protected Phone createInstanceFromResult(ResultSet resultSet) throws SQLException {
-        Phone phoneDTO = new Phone();
-        phoneDTO.setId(resultSet.getInt("id"));
-        phoneDTO.setNumber(resultSet.getString("number"));
-        phoneDTO.setEntityType(getType(resultSet.getString("type")));
-        return phoneDTO;
+    public List<Phone> getAll() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Phone> criteriaQuery = criteriaBuilder.createQuery(Phone.class);
+        CriteriaQuery<Phone> select = criteriaQuery.select(criteriaQuery.from(Phone.class));
+        return entityManager.createQuery(select).getResultList();
     }
 }

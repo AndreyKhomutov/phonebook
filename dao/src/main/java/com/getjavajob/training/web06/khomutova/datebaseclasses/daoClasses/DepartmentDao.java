@@ -1,50 +1,50 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.CrudDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
-import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
 
 @Repository
-public class DepartmentDao extends GenericDao<Department> {
+public class DepartmentDao implements CrudDao<Department> {
 
     @Autowired
-    public DepartmentDao(DataSource dataSource) {
-        super(dataSource);
+    private EntityManager entityManager;
+
+    @Override
+    public void add(Department entity) {
+        entityManager.merge(entity);
     }
 
     @Override
-    protected String getTableName() {
-        return "department";
+    public void update(Department entity) {
+        entityManager.merge(entity);
     }
 
     @Override
-    protected String getInsertStatement() {
-        return "INSERT INTO " + getTableName() + "(name, boss) VALUES ( ?, ?)";
+    public void delete(int id) {
+        Department department = entityManager.find(Department.class, id);
+        entityManager.remove(department);
+
     }
 
     @Override
-    protected String getUpdateByIdStatement() {
-        return "UPDATE " + getTableName() + " SET name = ?, boss = ? WHERE id =?";
+    public Department get(int id) {
+        return entityManager.find(Department.class, id);
     }
 
     @Override
-    protected Department createInstanceFromResult(ResultSet resultSet) throws SQLException {
-        Department department = new Department();
-        department.setId(resultSet.getInt("id"));
-        department.setName(resultSet.getString("name"));
-        department.setDepartmentBoss(makeBoss(resultSet.getInt("boss")));
-        return department;
-    }
-
-    private Employee makeBoss(int id) {
-        Employee employee = new Employee();
-        employee.setId(id);
-        return employee;
+    public List<Department> getAll() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Department> criteriaQuery = criteriaBuilder.createQuery(Department.class);
+        CriteriaQuery<Department> select = criteriaQuery.select(criteriaQuery.from(Department.class));
+        return entityManager.createQuery(select).getResultList();
     }
 }

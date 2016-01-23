@@ -1,10 +1,29 @@
 package com.getjavajob.training.web06.khomutova.phonebookclasses;
 
-public class Address extends BaseEntity {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "address")
+public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "addressID")
+    private int id;
     private String city;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String street;
     private int apartment;
     private int postal;
+    @Enumerated (EnumType.STRING)
+    @Column (name = "type")
     private EntityType addressType;
 
     public EntityType getAddressType() {
