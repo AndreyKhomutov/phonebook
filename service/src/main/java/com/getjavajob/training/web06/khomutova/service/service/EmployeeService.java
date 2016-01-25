@@ -97,4 +97,11 @@ public class EmployeeService implements CrudDao<Employee>  {
     public List<Employee> getAll() {
         return dao.getAll();
     }
+
+    @Transactional
+    public void addPhones(List<Phone> phones){
+        for (Phone phone: phones){
+            phoneDao.add(phone);
+        }
+    }
 }

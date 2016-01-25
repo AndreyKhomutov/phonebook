@@ -37,6 +37,9 @@
 
                                 <input type="hidden" name="ID" class="form-control" id="ID"
                                 value=${employee.id}>
+
+                                <input type="hidden" name="deletePhoto" class="form-control" id="deletePhoto"
+                                       value="false">
                                 </form>
                         </div>
                         <div class=" col-md-9 col-lg-9 ">
@@ -104,9 +107,7 @@
 <script>
     $("#buttonDelete").click(function () {
                 $('#blah').attr('src', "/resources/avatar.jpg");
-                $('#imgInp').change(function(){
-                    readURL("/resources/avatar.jpg");
-                });
+                $('#deletePhoto').attr('value', "true");
             }
     );
 

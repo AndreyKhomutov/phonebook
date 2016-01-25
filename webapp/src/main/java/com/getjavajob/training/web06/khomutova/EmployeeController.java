@@ -2,6 +2,7 @@ package com.getjavajob.training.web06.khomutova;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
@@ -80,6 +81,7 @@ public class EmployeeController {
     @RequestMapping(value = "/doAddEmployee", method = RequestMethod.POST)
     public String doAddEmployee(HttpServletRequest request) {
         Employee employee = new Employee();
+        employee.setPhoto(null);
         employee.setName(request.getParameter("name"));
         String date = request.getParameter("date");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -96,8 +98,23 @@ public class EmployeeController {
         employee.setBoss(boss);
         employee.setDepartment(departmentService.getAll().get(Integer.parseInt(request.getParameter("department"))));
         employee.setAddresses(makeAddress(request.getParameterValues("addresses[]")));
-        employee.setPhones(makePhones(request.getParameterValues("phones[]")));
-        employeeService.add(employee);
+        List<Phone> newPhones=new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            if (request.getParameter("Number"+i)!=null){
+                Phone phone=new Phone();
+                phone.setNumber(request.getParameter("Number" + i));
+                if (request.getParameter("Type"+i).equals("job")){
+                    phone.setEntityType(EntityType.job);
+                } else {
+                    phone.setEntityType(EntityType.home);
+                }
+                newPhones.add(phone);
+            } else {
+                break;
+            }
+        }
+        employee.setPhones(makePhones(request.getParameterValues("phones[]"), newPhones));
+       employeeService.add(employee);
         return "redirect:/showEmployees";
     }
 
@@ -124,14 +141,22 @@ public class EmployeeController {
         Iterator<String> itr =  request.getFileNames();
         MultipartFile mpf = request.getFile(itr.next());
         int id= Integer.parseInt(request.getParameter("ID"));
+        boolean deletePhoto= Boolean.parseBoolean(request.getParameter("deletePhoto"));
         Employee employee = employeeService.get(id);
         if (!mpf.isEmpty()){
             try {
-                employee.setPhoto(mpf.getBytes());
+                if (!deletePhoto){
+                    employee.setPhoto(mpf.getBytes());
+                } else {
+                    employee.setPhoto(null);
+                }
                 employeeService.update(employee);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            employee.setPhoto(null);
+            employeeService.update(employee);
         }
         return "redirect:/showEmployee?ID="+id;
     }
@@ -174,8 +199,23 @@ public class EmployeeController {
             employee.setAddresses((ArrayList<Address>) oldGay.getAddresses());
         }
 
+        List<Phone> newPhones=new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            if (request.getParameter("Number"+i)!=null){
+                Phone phone=new Phone();
+                phone.setNumber(request.getParameter("Number" + i));
+                if (request.getParameter("Type"+i).equals("job")){
+                    phone.setEntityType(EntityType.job);
+                } else {
+                    phone.setEntityType(EntityType.home);
+                }
+                newPhones.add(phone);
+            } else {
+                break;
+            }
+        }
         if (request.getParameterValues("phones[]") != null) {
-            employee.setPhones(makePhones(request.getParameterValues("phones[]")));
+            employee.setPhones(makePhones(request.getParameterValues("phones[]"), newPhones));
         } else {
             employee.setPhones((ArrayList<Phone>) oldGay.getPhones());
         }
@@ -183,12 +223,15 @@ public class EmployeeController {
         return "redirect:/showEmployees";
     }
 
-    private ArrayList<Phone> makePhones(String[] parameterValues) {
+    private ArrayList<Phone> makePhones(String[] parameterValues, List<Phone> newPhones) {
         List<Phone> phoneList = employeeService.getAllPhones();
         ArrayList<Phone> result = new ArrayList<>();
         for (String string : parameterValues) {
             int phoneID = Integer.parseInt(string);
             result.add(phoneList.get(phoneID));
+        }
+        for (Phone newPhone:newPhones){
+            result.add(newPhone);
         }
         return result;
     }

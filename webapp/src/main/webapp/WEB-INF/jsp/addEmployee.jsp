@@ -91,16 +91,44 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Телефоны</label>
-                                        <div class="col-sm-10">
-                                            <select value multiple class="form-control" name="phones[]">
+                                        <div class="col-sm-10" id="tab_logic_2">
+                                            <select value multiple class="form-control" name="phones[]" id='select0'>
                                                 <c:forEach items="${phones}" var="phones" varStatus="status">
                                                     <option value="${status.index}">${phones.number} ${phones.entityType}</option>
                                                 </c:forEach>
+                                                <div id='select1'></div>
                                             </select>
                                         </div>
                                     </div>
+
+                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label">Добавить</label>
+                                            <div class="col-sm-10">
+                                                <table class="table table-hover" id="tab_logic">
+                                                    <tbody>
+                                                    <tr id='addr0'>
+                                                        <td>
+                                                            <input type="text" name='Number0'  placeholder='Number' class="form-control"/>
+                                                        </td>
+                                                        <td>
+                                                            <select name='Type0' placeholder='Type' class="form-control">
+                                                                <option>home</option>
+                                                                <option>job</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id='addr1'></tr>
+                                                    </tbody>
+                                                </table>
+                                                <a id="add_row" class="btn btn-default pull-left ">Добавить</a>
+                                                <a id='delete_row' class="pull-right btn btn-default">Удалить</a>
+                                            </div>
+                                         </div>
+
+
                                     <input class="btn btn-success btn btn-lg btn-success btn-block" name="commit"
                                            type="submit" value="Сохранить">
                                 </form>
@@ -113,5 +141,22 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        var i=1;
+        $("#add_row").click(function(){
+            $('#addr'+i).html("<td><input name='Number"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td>" +
+                    "<td><select  name='Type"+i+"' placeholder='Type'  class='form-control'><option>home</option><option>job</option></select></td>");
+            $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+           i++;
+        });
+        $("#delete_row").click(function(){
+            if(i>1){
+                $("#addr"+(i-1)).html('');
+                i--;
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -37,12 +37,12 @@ public class Employee {
     @JoinColumn(name = "boss")
     private Employee boss;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable(name = "employee_has_phones", joinColumns = @JoinColumn(name = "employeeID"),
             inverseJoinColumns = @JoinColumn(name = "phoneID"))
     private List<Phone> phones;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable(name = "employee_has_addresses", joinColumns = @JoinColumn(name = "employeeID"),
             inverseJoinColumns = @JoinColumn(name = "addressID"))
     private List<Address> addresses;
