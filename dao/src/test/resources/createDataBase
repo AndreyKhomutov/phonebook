@@ -14,7 +14,8 @@ create table employee(
     skype varchar(50) not null,
     email varchar(50) not null,
     boss int not null,
-    departmentID int not null);
+    departmentID int not null,
+    photo blob);
 create table employee_has_addresses(
     employeeID int,
     addressID int,

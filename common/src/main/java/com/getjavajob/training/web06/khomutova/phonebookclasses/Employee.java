@@ -8,10 +8,60 @@ import java.util.List;
 @Entity
 @Table(name = "employee")
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employeeID")
     private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "birthday")
+    private Date birthday;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "icq")
+    private String icq;
+
+    @Column(name = "skype")
+    private String skype;
+
+    @ManyToOne
+    @JoinColumn(name = "departmentID")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "boss")
+    private Employee boss;
+
+    @ManyToMany
+    @JoinTable(name = "employee_has_phones", joinColumns = @JoinColumn(name = "employeeID"),
+            inverseJoinColumns = @JoinColumn(name = "phoneID"))
+    private List<Phone> phones;
+
+    @ManyToMany
+    @JoinTable(name = "employee_has_addresses", joinColumns = @JoinColumn(name = "employeeID"),
+            inverseJoinColumns = @JoinColumn(name = "addressID"))
+    private List<Address> addresses;
+
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public int getId() {
         return id;
@@ -19,37 +69,6 @@ public class Employee {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Column(name = "name")
-    private String name;
-    @Column(name = "birthday")
-    private Date birthday;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "icq")
-    private String icq;
-    @Column(name = "skype")
-    private String skype;
-    @ManyToOne
-    @JoinColumn(name = "departmentID")
-    private Department department;
-    @ManyToOne
-    @JoinColumn(name = "boss")
-    private Employee boss;
-
-    @ManyToMany
-    @JoinTable(name="employee_has_phones", joinColumns = @JoinColumn(name = "employeeID"),
-            inverseJoinColumns = @JoinColumn (name = "phoneID"))
-    private List<Phone> phones;
-
-    @ManyToMany
-    @JoinTable(name="employee_has_addresses", joinColumns = @JoinColumn(name = "employeeID"),
-            inverseJoinColumns = @JoinColumn (name = "addressID"))
-    private List<Address> addresses;
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {

@@ -10,12 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -38,8 +45,25 @@ public class EmployeeController {
     @RequestMapping(value = "/showEmployee", method = RequestMethod.GET)
     public ModelAndView showEmployee(@RequestParam("ID") int id) {
         Employee employee = employeeService.get(id);
+        ClassLoader classLoader = getClass().getClassLoader();
+        String base34Photo=new String();
+        if (employee.getPhoto()==null){
+            File file = new File(classLoader.getResource("avatar.jpg").getFile());
+            try {
+                byte[] array = Files.readAllBytes(file.toPath());
+                base34Photo=Base64.getEncoder().encodeToString(array);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            byte[] photo=employee.getPhoto();
+            if (photo.length>0){
+                base34Photo=Base64.getEncoder().encodeToString(photo);
+            }
+        }
         ModelAndView modelAndView = new ModelAndView("employee");
         modelAndView.addObject("employee", employee);
+        modelAndView.addObject("photo", base34Photo);
         return modelAndView;
     }
 
@@ -93,6 +117,23 @@ public class EmployeeController {
         modelAndView.addObject("addresses", employeeService.getAllAddresses());
         modelAndView.addObject("phones", employeeService.getAllPhones());
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/photo", method = RequestMethod.POST)
+    public String upload ( MultipartHttpServletRequest request) {
+        Iterator<String> itr =  request.getFileNames();
+        MultipartFile mpf = request.getFile(itr.next());
+        int id= Integer.parseInt(request.getParameter("ID"));
+        Employee employee = employeeService.get(id);
+        if (!mpf.isEmpty()){
+            try {
+                employee.setPhoto(mpf.getBytes());
+                employeeService.update(employee);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/showEmployee?ID="+id;
     }
 
     @RequestMapping(value = "/doUpdateEmployee", method = RequestMethod.POST)
