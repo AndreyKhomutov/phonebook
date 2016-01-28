@@ -2,7 +2,6 @@ package com.getjavajob.training.web06.khomutova.service.tests;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
-import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@ContextConfiguration(locations = {"classpath:dao-context.xml", "classpath:phonebook-context-override.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class EmployeeServiceTest {
     private EmployeeDao imitatorDao = mock(EmployeeDao.class);
@@ -48,7 +47,7 @@ public class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("Employee1");
-        Employee boss=new Employee();
+        Employee boss = new Employee();
         boss.setId(1);
         boss.setName("Test");
         employee.setBoss(employee);

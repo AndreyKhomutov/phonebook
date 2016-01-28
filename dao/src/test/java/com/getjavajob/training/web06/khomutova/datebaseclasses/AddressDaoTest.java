@@ -14,13 +14,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@ContextConfiguration(locations = {"classpath:dao-context.xml", "classpath:dao-context-override.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class AddressDaoTest {
@@ -63,7 +67,7 @@ public class AddressDaoTest {
         address.setCity("Moscow");
         assertEquals(3, addressDao.getAll().size());
         addressDao.add(address);
-     //   assertEquals(4, addressDao.getAll().size()); //todo
+        //   assertEquals(4, addressDao.getAll().size()); //todo
     }
 
     @Test

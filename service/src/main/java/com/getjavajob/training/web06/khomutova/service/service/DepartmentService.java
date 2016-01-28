@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service ("DepartmentService")
+@Service("DepartmentService")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class DepartmentService implements CrudDao<Department>  {
+public class DepartmentService implements CrudDao<Department> {
 
     private DepartmentDao dao;
     private EmployeeDao employeeDao;
     private AddressDao addressDao;
     private PhoneDao phoneDao;
 
-   @Autowired
+    @Autowired
     public DepartmentService(DepartmentDao dao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
-        this.dao=dao;
+        this.dao = dao;
         this.employeeDao = employeeDao;
         this.addressDao = addressDao;
         this.phoneDao = phoneDao;
@@ -57,12 +57,13 @@ public class DepartmentService implements CrudDao<Department>  {
     @Transactional
     @Override
     public void update(Department entity) {
-       dao.update(entity);
+        dao.update(entity);
     }
+
     @Transactional
     @Override
     public void delete(int id) {
-      dao.delete(id);
+        dao.delete(id);
     }
 
     @Override

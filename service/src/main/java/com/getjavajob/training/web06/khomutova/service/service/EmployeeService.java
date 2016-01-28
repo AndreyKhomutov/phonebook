@@ -1,8 +1,10 @@
 package com.getjavajob.training.web06.khomutova.service.service;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.*;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.AddressDao;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.CrudDao;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
+import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
-import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import java.util.List;
 
 @Service("EmployeeService")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class EmployeeService implements CrudDao<Employee>  {
+public class EmployeeService implements CrudDao<Employee> {
 
     private EmployeeDao dao;
     private AddressDao addressDao;
@@ -23,7 +25,7 @@ public class EmployeeService implements CrudDao<Employee>  {
 
     @Autowired
     public EmployeeService(EmployeeDao dao, AddressDao addressDao, PhoneDao phoneDao) {
-        this.dao=dao;
+        this.dao = dao;
         this.addressDao = addressDao;
         this.phoneDao = phoneDao;
     }
@@ -39,7 +41,7 @@ public class EmployeeService implements CrudDao<Employee>  {
         return result;
     }
 
-        public List<Address> getAllAddresses() {
+    public List<Address> getAllAddresses() {
         return addressDao.getAll();
     }
 
@@ -71,13 +73,13 @@ public class EmployeeService implements CrudDao<Employee>  {
     @Transactional
     @Override
     public void update(Employee entity) {
-       dao.update(entity);
+        dao.update(entity);
     }
 
     @Transactional
     @Override
     public void delete(int id) {
-       dao.delete(id);
+        dao.delete(id);
     }
 
     public EmployeeDao getDao() {
@@ -98,10 +100,13 @@ public class EmployeeService implements CrudDao<Employee>  {
         return dao.getAll();
     }
 
-    @Transactional
-    public void addPhones(List<Phone> phones){
-        for (Phone phone: phones){
-            phoneDao.add(phone);
+    public List<Employee> makeDtoEmployees(List<Employee> emps) {
+        for (Employee employee : emps) {
+            employee.setBoss(null);
+            employee.setPhones(null);
+            employee.setAddresses(null);
+            employee.setDepartment(null);
         }
+        return emps;
     }
 }

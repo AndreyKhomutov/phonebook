@@ -46,23 +46,23 @@
                         }));
                     },
                     success: function (data) {
-                        s='';
-                        s+='<table class="table">';
-                        s+='<thead>';
-                        s+='<tr>';
-                        s+='<th>Name</th>';
-                        s+='<th>Email</th>';
-                        s+='<th>Skype</th>';
-                        s+='</tr>';
-                        s+='</thead>';
-                        s+='<tbody>';
+                        s = '';
+                        s += '<table class="table">';
+                        s += '<thead>';
+                        s += '<tr>';
+                        s += '<th>Name</th>';
+                        s += '<th>Email</th>';
+                        s += '<th>Skype</th>';
+                        s += '</tr>';
+                        s += '</thead>';
+                        s += '<tbody>';
                         data.forEach(function (e) {
-                            s+='<tr>';
-                            s += '<td>' + e.name + '</td>'+'<td>'+e.email+'</td>'+'<td>'+e.skype+'</td>';
-                            s+='</tr>';
+                            s += '<tr>';
+                            s += '<td>' + e.name + '</td>' + '<td>' + e.email + '</td>' + '<td>' + e.skype + '</td>';
+                            s += '</tr>';
                         });
-                        s+='</tbody>';
-                        s+='</table>';
+                        s += '</tbody>';
+                        s += '</table>';
                         $('#result').html(s);
                     },
                 });

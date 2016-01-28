@@ -10,29 +10,41 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dao</artifactId>
 
+    <properties>
+        <h2>1.4.190</h2>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.getjavajob</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.getjavajob</groupId>
             <artifactId>webapp</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>${commons-dbcp2}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

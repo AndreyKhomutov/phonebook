@@ -2,7 +2,6 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
-import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

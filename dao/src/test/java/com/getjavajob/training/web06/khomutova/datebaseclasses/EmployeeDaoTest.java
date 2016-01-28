@@ -24,8 +24,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})//todo
-@DirtiesContext (classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ContextConfiguration(locations = {"classpath:dao-context.xml", "classpath:dao-context-override.xml"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class EmployeeDaoTest {
 
@@ -67,7 +67,7 @@ public class EmployeeDaoTest {
         employee.setName("Ivanov Ivan");
         assertEquals(2, employeeDao.getAll().size());
         employeeDao.add(employee);
-     //   assertEquals(3, employeeDao.getAll().size()); //todo
+        //   assertEquals(3, employeeDao.getAll().size()); //todo
     }
 
     @Test

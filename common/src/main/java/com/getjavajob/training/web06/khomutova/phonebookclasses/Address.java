@@ -10,6 +10,12 @@ public class Address {
     @Column(name = "addressID")
     private int id;
     private String city;
+    private String street;
+    private int apartment;
+    private int postal;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private EntityType addressType;
 
     public int getId() {
         return id;
@@ -18,13 +24,6 @@ public class Address {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String street;
-    private int apartment;
-    private int postal;
-    @Enumerated (EnumType.STRING)
-    @Column (name = "type")
-    private EntityType addressType;
 
     public EntityType getAddressType() {
         return addressType;

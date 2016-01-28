@@ -34,7 +34,7 @@ public class DepartmentController {
     @RequestMapping(value = "/showDepartment", method = RequestMethod.GET)
     public ModelAndView showDepartment(@RequestParam("ID") int id) {
         Department department = departmentService.get(id);
-        Employee boss=department.getDepartmentBoss();
+        Employee boss = department.getDepartmentBoss();
         ModelAndView modelAndView = new ModelAndView("department");
         modelAndView.addObject("department", department);
         modelAndView.addObject("boss", boss);
@@ -54,7 +54,7 @@ public class DepartmentController {
         department.setName(request.getParameter("name"));
         int bossID = Integer.parseInt(request.getParameter("boss")) + 1;
         department.setDepartmentBoss(employeeService.get(bossID));
-        department.setId(departmentService.getAll().size()+1);
+        department.setId(departmentService.getAll().size() + 1);
         departmentService.add(department);
         return "redirect:/showDepartments";
     }

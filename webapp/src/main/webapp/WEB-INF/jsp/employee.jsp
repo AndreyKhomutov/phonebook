@@ -18,7 +18,8 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="center">
 
-                            <form method="post" action="/photo" headers = "content-type=multipart/*" enctype="multipart/form-data">
+                            <form method="post" action="/photo" headers="content-type=multipart/*"
+                                  enctype="multipart/form-data">
 
                                 <img id="blah" src='data:image/jpeg;base64,${photo}' class="img-circle img-responsive"/>
 
@@ -36,11 +37,11 @@
                                     <span class="glyphicon glyphicon-remove"></span></button>
 
                                 <input type="hidden" name="ID" class="form-control" id="ID"
-                                value=${employee.id}>
+                                       value=${employee.id}>
 
                                 <input type="hidden" name="deletePhoto" class="form-control" id="deletePhoto"
                                        value="false">
-                                </form>
+                            </form>
                         </div>
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table table-user-information">

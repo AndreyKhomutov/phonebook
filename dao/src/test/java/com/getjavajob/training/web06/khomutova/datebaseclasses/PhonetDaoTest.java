@@ -1,6 +1,5 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.connectClasses.DataSourceHolder;
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider;
@@ -15,15 +14,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@ContextConfiguration(locations = {"classpath:dao-context.xml", "classpath:dao-context-override.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class PhonetDaoTest {
@@ -66,7 +67,7 @@ public class PhonetDaoTest {
         phone.setNumber("88129898998");
         assertEquals(6, phoneDao.getAll().size());
         phoneDao.add(phone);
-     //   assertEquals(7, phoneDao.getAll().size()); //todo
+        //   assertEquals(7, phoneDao.getAll().size()); //todo
     }
 
     @Test

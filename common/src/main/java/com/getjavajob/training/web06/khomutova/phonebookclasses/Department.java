@@ -7,8 +7,13 @@ import javax.persistence.*;
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "departmentID")
+    @Column(name = "departmentID")
     public int id;
+    @Column(name = "name")
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "employeeID")
+    private Employee departmentBoss;
 
     public int getId() {
         return id;
@@ -17,12 +22,6 @@ public class Department {
     public void setId(int id) {
         this.id = id;
     }
-
-    @Column (name = "name")
-    private String name;
-    @ManyToOne
-    @JoinColumn(name = "employeeID")
-    private Employee departmentBoss;
 
     public String getName() {
         return name;

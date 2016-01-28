@@ -22,8 +22,8 @@ public class SearchController {
 
     @RequestMapping(value = "/doSearch", method = RequestMethod.POST)
     public ModelAndView doSearch(@RequestParam("search") String search) {
-       List<Employee> result=employeeService.searchEmployee(search);
-        ModelAndView modelAndView=new ModelAndView("search");
+        List<Employee> result = employeeService.searchEmployee(search);
+        ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("employees", result);
         modelAndView.addObject("search", search);
         return modelAndView;
@@ -41,12 +41,7 @@ public class SearchController {
             }
         });
         System.out.println(emps.size());
-        for (Employee employee: emps){
-            employee.setBoss(null);
-            employee.setPhones(null);
-            employee.setAddresses(null);
-            employee.setDepartment(null);
-        }
-        return emps;
+        List<Employee> result = employeeService.makeDtoEmployees(emps);
+        return result;
     }
 }

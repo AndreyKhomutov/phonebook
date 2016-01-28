@@ -1,10 +1,3 @@
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Department" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.phonebookclasses.Employee" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.service.service.DepartmentService" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.service.service.EmployeeService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,6 +9,7 @@
         <div class="page-header">
             <h3>Редактировать департамент ${department.name}
             </h3>
+
             <p></p>
         </div>
         <div class="container">
@@ -30,6 +24,7 @@
                                       role="form">
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">ID</label>
+
                                         <div class="col-sm-10">
                                             <input type="text" name="ID" class="form-control" id="ID"
                                                    value=${department.id}>
@@ -37,6 +32,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">Имя</label>
+
                                         <div class="col-sm-10">
                                             <input type="text" name="name" class="form-control" id="name"
                                                    value=${department.name}>
@@ -44,6 +40,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Руководитель</label>
+
                                         <div class="col-sm-10">
                                             <select value class="form-control" name="boss">
                                                 <c:forEach items="${employees}" var="employees"

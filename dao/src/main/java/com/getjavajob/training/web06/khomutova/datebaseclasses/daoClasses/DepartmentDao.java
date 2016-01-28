@@ -1,8 +1,6 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses;
 
 
-import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.CrudDao;
-import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:phonebook-context-override.xml"})
+@ContextConfiguration(locations = {"classpath:dao-context.xml", "classpath:phonebook-context-override.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DepartmentServiceTest {
     private DepartmentDao imitatorDao = mock(DepartmentDao.class);

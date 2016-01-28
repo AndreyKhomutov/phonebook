@@ -37,12 +37,12 @@ public class Employee {
     @JoinColumn(name = "boss")
     private Employee boss;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "employee_has_phones", joinColumns = @JoinColumn(name = "employeeID"),
             inverseJoinColumns = @JoinColumn(name = "phoneID"))
     private List<Phone> phones;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "employee_has_addresses", joinColumns = @JoinColumn(name = "employeeID"),
             inverseJoinColumns = @JoinColumn(name = "addressID"))
     private List<Address> addresses;
@@ -63,16 +63,16 @@ public class Employee {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getBirthday() {
