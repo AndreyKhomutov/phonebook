@@ -52,9 +52,8 @@ public class DepartmentController {
     public String doAddDepartment(HttpServletRequest request) {
         Department department = new Department();
         department.setName(request.getParameter("name"));
-        int bossID = Integer.parseInt(request.getParameter("boss")) + 1;
+        int bossID = Integer.parseInt(request.getParameter("boss"))+1;
         department.setDepartmentBoss(employeeService.get(bossID));
-        department.setId(departmentService.getAll().size() + 1);
         departmentService.add(department);
         return "redirect:/showDepartments";
     }

@@ -97,23 +97,21 @@ public class EmployeeController {
         Employee boss = employeeService.get(bossID);
         employee.setBoss(boss);
         employee.setDepartment(departmentService.getAll().get(Integer.parseInt(request.getParameter("department"))));
-        employee.setAddresses(makeAddress(request.getParameterValues("addresses[]")));
-        List<Phone> newPhones = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            if (request.getParameter("Number" + i) != null) {
-                Phone phone = new Phone();
-                phone.setNumber(request.getParameter("Number" + i));
-                if (request.getParameter("Type" + i).equals("job")) {
+        employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
+        List<Phone> employeePhones = new ArrayList<>();
+        String[] phones=request.getParameterValues("mytext[]");
+        String[] phonesTypes=request.getParameterValues("Type[]");
+        for (int i = 0; i < phones.length; i++) {
+            Phone phone=new Phone();
+            phone.setNumber(phones[i]);
+            if (phonesTypes[i].equals("job")) {
                     phone.setEntityType(EntityType.job);
                 } else {
                     phone.setEntityType(EntityType.home);
                 }
-                newPhones.add(phone);
-            } else {
-                break;
-            }
+            employeePhones.add(phone);
         }
-        employee.setPhones(makePhones(request.getParameterValues("phones[]"), newPhones));
+        employee.setPhones(employeePhones);
         employeeService.add(employee);
         return "redirect:/showEmployees";
     }
@@ -194,54 +192,48 @@ public class EmployeeController {
         }
 
         if (request.getParameterValues("addresses[]") != null) {
-            employee.setAddresses(makeAddress(request.getParameterValues("addresses[]")));
+        employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
         } else {
-            employee.setAddresses((ArrayList<Address>) oldGay.getAddresses());
+            employee.setAddresses(oldGay.getAddresses());
         }
 
-        List<Phone> newPhones = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            if (request.getParameter("Number" + i) != null) {
+        if (request.getParameterValues("phones[]") != null) {
+            List<Phone> employeePhones = new ArrayList<>();
+            String[] phones = request.getParameterValues("mytext[]");
+            String[] phonesTypes = request.getParameterValues("Type[]");
+            for (int i = 0; i < phones.length; i++) {
                 Phone phone = new Phone();
-                phone.setNumber(request.getParameter("Number" + i));
-                if (request.getParameter("Type" + i).equals("job")) {
+                phone.setNumber(phones[i]);
+                if (phonesTypes[i].equals("job")) {
                     phone.setEntityType(EntityType.job);
                 } else {
                     phone.setEntityType(EntityType.home);
                 }
-                newPhones.add(phone);
-            } else {
-                break;
+                employeePhones.add(phone);
             }
-        }
-        if (request.getParameterValues("phones[]") != null) {
-            employee.setPhones(makePhones(request.getParameterValues("phones[]"), newPhones));
-        } else {
-            employee.setPhones((ArrayList<Phone>) oldGay.getPhones());
+            employee.setPhones(employeePhones);
+        }else {
+           employee.setPhones(oldGay.getPhones());
         }
         employeeService.update(employee);
         return "redirect:/showEmployees";
     }
 
-    private ArrayList<Phone> makePhones(String[] parameterValues, List<Phone> newPhones) {
-        List<Phone> phoneList = employeeService.getAllPhones();
-        ArrayList<Phone> result = new ArrayList<>();
-        for (String string : parameterValues) {
-            int phoneID = Integer.parseInt(string);
-            result.add(phoneList.get(phoneID));
-        }
-        for (Phone newPhone : newPhones) {
-            result.add(newPhone);
-        }
-        return result;
-    }
-
-    private ArrayList<Address> makeAddress(String[] addreses) {
-        List<Address> addressList = employeeService.getAllAddresses();
+    private ArrayList<Address> makeAddress(String[] addreses, String[] parameterValues) {
         ArrayList<Address> result = new ArrayList<>();
-        for (String string : addreses) {
-            int addressID = Integer.parseInt(string);
-            result.add(addressList.get(addressID));
+        for (int i = 0; i < addreses.length; i++) {
+            String[] addresline = addreses[i].split(" ");
+            Address address = new Address();
+            address.setPostal(Integer.parseInt(addresline[0]));
+            address.setCity(addresline[1]);
+            address.setStreet(addresline[2]);
+            address.setApartment(Integer.parseInt(addresline[3]));
+            if (parameterValues[i].equals("job")) {
+                address.setAddressType(EntityType.job);
+            } else {
+                address.setAddressType(EntityType.home);
+            }
+            result.add(address);
         }
         return result;
     }

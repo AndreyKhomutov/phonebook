@@ -2,6 +2,7 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.AddressDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Address;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
 import com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.h2.tools.RunScript;
@@ -63,11 +64,15 @@ public class AddressDaoTest {
 
     @Test
     public void add() {
-        Address address = addressDao.get(2);
+        Address address = new Address();
+        address.setPostal(188480);
         address.setCity("Moscow");
+        address.setStreet("Veteranov");
+        address.setAddressType(EntityType.home);
+        address.setApartment(10);
         assertEquals(3, addressDao.getAll().size());
         addressDao.add(address);
-        //   assertEquals(4, addressDao.getAll().size()); //todo
+        assertEquals(4, addressDao.getAll().size());
     }
 
     @Test

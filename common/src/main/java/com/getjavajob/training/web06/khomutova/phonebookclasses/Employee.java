@@ -10,7 +10,7 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employeeID")
     private int id;
 
@@ -87,7 +87,7 @@ public class Employee {
         return phones;
     }
 
-    public void setPhones(ArrayList<Phone> phones) {
+    public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
 
@@ -95,7 +95,7 @@ public class Employee {
         return addresses;
     }
 
-    public void setAddresses(ArrayList<Address> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 

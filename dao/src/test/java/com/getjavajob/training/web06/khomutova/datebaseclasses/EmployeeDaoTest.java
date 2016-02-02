@@ -63,11 +63,21 @@ public class EmployeeDaoTest {
 
     @Test
     public void add() {
-        Employee employee = employeeDao.get(1);
+        Employee employee1 = employeeDao.get(1);
+        Employee employee=new Employee();
         employee.setName("Ivanov Ivan");
+        employee.setBirthday(employee1.getBirthday());
+        employee.setPhoto(employee1.getPhoto());
+        employee.setDepartment(employee1.getDepartment());
+        employee.setBoss(employee1.getBoss());
+        employee.setEmail("fsf@mail.ru");
+        employee.setIcq("65456454");
+        employee.setSkype("ovan");
+        employee.setAddresses(employee1.getAddresses());
+        employee.setPhones(employee1.getPhones());
         assertEquals(2, employeeDao.getAll().size());
         employeeDao.add(employee);
-        //   assertEquals(3, employeeDao.getAll().size()); //todo
+        assertEquals(3, employeeDao.getAll().size());
     }
 
     @Test

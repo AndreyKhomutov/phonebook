@@ -64,11 +64,12 @@ public class DepartmentDaoTest {
 
     @Test
     public void add() {
-        Department department = departmentDao.get(1);
+        Department department = new Department();
         department.setName("ITCeo");
+        department.setDepartmentBoss(departmentDao.get(1).getDepartmentBoss());
         assertEquals(3, departmentDao.getAll().size());
         departmentDao.add(department);
-        //  assertEquals(4, departmentDao.getAll().size());// todo
+        assertEquals(4, departmentDao.getAll().size());
     }
 
     @Test

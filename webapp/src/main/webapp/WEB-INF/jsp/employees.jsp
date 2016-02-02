@@ -29,7 +29,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/showEmployee?ID=${employee.id}">Просмотреть</a></li>
                             <li><a href="/updateEmployee?ID=${employee.id}">Редактировать</a></li>
-                            <% if (session.getAttribute("profileType") != null && session.getAttribute("profileType").equals("admin")) {
+                        <% if (session.getAttribute("profileType") != null && session.getAttribute("profileType").equals("admin")) { //todo convert to JSTL
                             %>
                             <li><a href="/deleteEmployee?ID=${employee.id}">Удалить</a></li>
                             <%

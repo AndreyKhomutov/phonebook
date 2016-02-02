@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
@@ -95,18 +96,46 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Адреса</label>
-
                                         <div class="col-sm-10">
                                             <select value multiple class="form-control" name="addresses[]">
                                                 <c:forEach items="${addresses}" var="addresses" varStatus="status">
-                                                    <option value="${status.index}">${addresses.city} ${addresses.addressType}</option>
+                                                    <option value="${status.index}">${addresses.postal} ${addresses.city} ${addresses.street} ${addresses.apartment} ${addresses.addressType}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Адреса</label>
+                                        <div class="col-sm-10">
+                                            <div class="input_fields_wrap2">
+                                                <table class="table table-hover" id="tab_logic2">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text"
+                                                                   name="mytext2[]" class="form-control"
+                                                                   list="addresses" value="Format:178000 SPB Volgogradskaya 10">
+                                                        </td>
+                                                        <td>
+                                                            <select name='Type2[]' placeholder='Type'
+                                                                    class="form-control">
+                                                                <option>home</option>
+                                                                <option>job</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <button class="add_field_button2">Добавить адрес</button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Телефоны</label>
-
                                         <div class="col-sm-10">
                                             <select value multiple class="form-control" name="phones[]">
                                                 <c:forEach items="${phones}" var="phones" varStatus="status">
@@ -115,6 +144,49 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Телефоны</label>
+                                        <div class="col-sm-10">
+                                            <div class="input_fields_wrap">
+                                                <table class="table table-hover" id="tab_logic">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text"
+                                                                   <%--pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{9})$"--%>
+                                                                   name="mytext[]" class="form-control"
+                                                                   list="phones" value="телефон +7(999)...">
+                                                        </td>
+                                                        <td>
+                                                            <select name='Type[]' placeholder='Type'
+                                                                    class="form-control">
+                                                                <option>home</option>
+                                                                <option>job</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <button class="add_field_button">Добавить телефон</button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <datalist id="phones">
+                                        <c:forEach items="${phones}" var="phones"
+                                                   varStatus="status">
+                                            <option value="${phones.number}">${phones.entityType}</option>
+                                        </c:forEach>
+                                    </datalist>
+
+                                    <datalist id="addresses">
+                                        <c:forEach items="${addresses}" var="addresses"
+                                                   varStatus="status">
+                                            <option value="${addresses.postal} ${addresses.city} ${addresses.street} ${addresses.apartment}">${addresses.addressType}</option>
+                                        </c:forEach>
+                                    </datalist>
                                     <input class="btn btn-success btn btn-lg btn-success btn-block" name="commit"
                                            type="submit" value="Сохранить">
                                 </form>
@@ -127,5 +199,6 @@
         </div>
     </div>
 </div>
+<script><%@include file="/resources/js/addEmployee.js"%></script>
 </body>
 </html>

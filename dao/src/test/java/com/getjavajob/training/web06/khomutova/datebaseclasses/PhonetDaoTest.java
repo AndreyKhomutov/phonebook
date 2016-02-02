@@ -1,6 +1,7 @@
 package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.PhoneDao;
+import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -63,11 +64,12 @@ public class PhonetDaoTest {
 
     @Test
     public void add() {
-        Phone phone = phoneDao.get(2);
+        Phone phone = new Phone();
         phone.setNumber("88129898998");
+        phone.setEntityType(EntityType.home);
         assertEquals(6, phoneDao.getAll().size());
         phoneDao.add(phone);
-        //   assertEquals(7, phoneDao.getAll().size()); //todo
+        assertEquals(7, phoneDao.getAll().size());
     }
 
     @Test
