@@ -18,13 +18,15 @@ import static org.mockito.Mockito.when;
 
 
 public class DepartmentServiceTest {
-    private DepartmentDao imitatorDao = mock(DepartmentDao.class);
-
-    private DepartmentService departmentService=new DepartmentService(null, null, null, null);
+    private DepartmentDao imitatorDao;
+    private EmployeeDao emloyeeImitation;
+    private DepartmentService departmentService;
 
     @Before
     public void init() {
-        departmentService.setDao(imitatorDao);
+        imitatorDao = mock(DepartmentDao.class);
+        emloyeeImitation = mock(EmployeeDao.class);
+        departmentService=new DepartmentService(imitatorDao, emloyeeImitation, null, null);
     }
 
     @Test
@@ -72,7 +74,6 @@ public class DepartmentServiceTest {
     @Test
     public void getEmployees() {
         DepartmentDao departmentImitation = mock(DepartmentDao.class);
-        EmployeeDao emloyeeImitation = mock(EmployeeDao.class);
         departmentService.setDao(departmentImitation);
         Department it = new Department();
         it.setId(1);
@@ -82,9 +83,9 @@ public class DepartmentServiceTest {
         counting.setName("COUTING");
         List<Employee> employees = makeEmployees();
         when(emloyeeImitation.getAll()).thenReturn(employees);
-        List<Employee> result = departmentService.getEmployees(it, emloyeeImitation);
+        List<Employee> result = departmentService.getEmployees(it);
         assertEquals(2, result.size());
-        List<Employee> result2 = departmentService.getEmployees(counting, emloyeeImitation);
+        List<Employee> result2 = departmentService.getEmployees(counting);
         assertEquals(1, result2.size());
     }
 

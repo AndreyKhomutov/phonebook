@@ -98,20 +98,9 @@ public class EmployeeController {
         employee.setBoss(boss);
         employee.setDepartment(departmentService.getAll().get(Integer.parseInt(request.getParameter("department"))));
         employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
-        List<Phone> employeePhones = new ArrayList<>();
         String[] phones=request.getParameterValues("mytext[]");
         String[] phonesTypes=request.getParameterValues("Type[]");
-        for (int i = 0; i < phones.length; i++) {
-            Phone phone=new Phone();
-            phone.setNumber(phones[i]);
-            if (phonesTypes[i].equals("job")) {
-                    phone.setEntityType(EntityType.job);
-                } else {
-                    phone.setEntityType(EntityType.home);
-                }
-            employeePhones.add(phone);
-        }
-        employee.setPhones(employeePhones);
+        employee.setPhones(makePhones(phones, phonesTypes));
         employeeService.add(employee);
         return "redirect:/showEmployees";
     }
@@ -198,20 +187,9 @@ public class EmployeeController {
         }
 
         if (request.getParameterValues("phones[]") != null) {
-            List<Phone> employeePhones = new ArrayList<>();
             String[] phones = request.getParameterValues("mytext[]");
             String[] phonesTypes = request.getParameterValues("Type[]");
-            for (int i = 0; i < phones.length; i++) {
-                Phone phone = new Phone();
-                phone.setNumber(phones[i]);
-                if (phonesTypes[i].equals("job")) {
-                    phone.setEntityType(EntityType.job);
-                } else {
-                    phone.setEntityType(EntityType.home);
-                }
-                employeePhones.add(phone);
-            }
-            employee.setPhones(employeePhones);
+            employee.setPhones(makePhones(phones, phonesTypes));
         }else {
            employee.setPhones(oldGay.getPhones());
         }
@@ -228,6 +206,13 @@ public class EmployeeController {
             address.setCity(addresline[1]);
             address.setStreet(addresline[2]);
             address.setApartment(Integer.parseInt(addresline[3]));
+            List<Address> addresses=employeeService.getAllAddresses();
+            for (Address dbAddress: addresses){
+                if (dbAddress.getPostal()==address.getPostal() || dbAddress.getCity().equals(address.getCity())||
+                        dbAddress.getStreet().equals(address.getStreet()) || dbAddress.getApartment()==address.getApartment()){
+                    address.setId(dbAddress.getId());
+                }
+            }
             if (parameterValues[i].equals("job")) {
                 address.setAddressType(EntityType.job);
             } else {
@@ -236,5 +221,27 @@ public class EmployeeController {
             result.add(address);
         }
         return result;
+    }
+
+    private List<Phone> makePhones(String[] phones, String[] phonesTypes) {
+        List<Phone> employeePhones=new ArrayList<>();
+        for (int i = 0; i < phones.length; i++) {
+            Phone phone=new Phone();
+            phone.setNumber(phones[i]);
+            if (phonesTypes[i].equals("job")) {
+                phone.setEntityType(EntityType.job);
+            } else {
+                phone.setEntityType(EntityType.home);
+            }
+            List<Phone> dbPhones=employeeService.getAllPhones();
+            for (Phone dbPhone: dbPhones){
+                if (dbPhone.getNumber().equals(phone.getNumber())){
+                    System.out.println("Bingo" + phone.getNumber());
+                    phone.setId(dbPhone.getId());
+                }
+            }
+            employeePhones.add(phone);
+        }
+        return employeePhones;
     }
 }

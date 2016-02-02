@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <body>
@@ -20,7 +21,7 @@
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-body">
-                                <form accept-charset="UTF-8" action="/doAddDepartment" method="post"
+                                <form:form accept-charset="UTF-8" commandname="department" action="/doAddDepartment" method="post"
                                       class="form-horizontal"
                                       role="form">
                                     <div class="form-group">
@@ -33,9 +34,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Руководитель</label>
-
+                                        <%--departmentBoss--%>
                                         <div class="col-sm-10">
-                                            <select value class="form-control" name="boss">
+                                            <select value class="form-control" name="departmentBoss">
                                                 <c:forEach items="${employees}" var="employees"
                                                            varStatus="status">
                                                     <option value="${status.index}">${employees.name}</option>
@@ -46,7 +47,7 @@
                                     <input class="btn btn-success btn btn-lg btn-success btn-block" name="commit"
                                            type="submit" value="Сохранить">
 
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>

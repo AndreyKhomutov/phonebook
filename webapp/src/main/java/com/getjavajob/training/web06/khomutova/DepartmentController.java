@@ -6,6 +6,7 @@ import com.getjavajob.training.web06.khomutova.service.service.DepartmentService
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,9 +51,15 @@ public class DepartmentController {
 
     @RequestMapping(value = "/doAddDepartment", method = RequestMethod.POST)
     public String doAddDepartment(HttpServletRequest request) {
-        Department department = new Department();
+        Department department=new Department();
         department.setName(request.getParameter("name"));
-        int bossID = Integer.parseInt(request.getParameter("boss"))+1;
+        List<Department> departments=departmentService.getAll();
+        for (Department dbDepartment: departments){
+            if (dbDepartment.getName().equals(department.getName())){
+                department.setId(dbDepartment.getId());
+            }
+        }
+        int bossID= Integer.parseInt(request.getParameter("departmentBoss"))+1;
         department.setDepartmentBoss(employeeService.get(bossID));
         departmentService.add(department);
         return "redirect:/showDepartments";

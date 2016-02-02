@@ -16,13 +16,13 @@ import java.util.List;
 public class DepartmentService implements CrudDao<Department> {
 
     private DepartmentDao dao;
-    private EmployeeDao employeeDao;
     private AddressDao addressDao;
     private PhoneDao phoneDao;
+    private EmployeeDao employeeDao;
 
     @Autowired
-    public DepartmentService(DepartmentDao dao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
-        this.dao = dao;
+    public DepartmentService(DepartmentDao departmentDao, EmployeeDao employeeDao, AddressDao addressDao, PhoneDao phoneDao) {
+        this.dao = departmentDao;
         this.employeeDao = employeeDao;
         this.addressDao = addressDao;
         this.phoneDao = phoneDao;
@@ -36,7 +36,7 @@ public class DepartmentService implements CrudDao<Department> {
         this.dao = dao;
     }
 
-    public List<Employee> getEmployees(Department department, EmployeeDao employeeDao) {//todo employeeDAO
+    public List<Employee> getEmployees(Department department) {
         EmployeeService employeeService = new EmployeeService(employeeDao, addressDao, phoneDao);
         List<Employee> allEmployees = employeeService.getAll();
         List<Employee> result = new ArrayList<>();
