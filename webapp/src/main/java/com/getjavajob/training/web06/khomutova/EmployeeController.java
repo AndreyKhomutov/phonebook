@@ -98,8 +98,8 @@ public class EmployeeController {
         employee.setBoss(boss);
         employee.setDepartment(departmentService.getAll().get(Integer.parseInt(request.getParameter("department"))));
         employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
-        String[] phones=request.getParameterValues("mytext[]");
-        String[] phonesTypes=request.getParameterValues("Type[]");
+        String[] phones = request.getParameterValues("mytext[]");
+        String[] phonesTypes = request.getParameterValues("Type[]");
         employee.setPhones(makePhones(phones, phonesTypes));
         employeeService.add(employee);
         return "redirect:/showEmployees";
@@ -181,7 +181,7 @@ public class EmployeeController {
         }
 
         if (request.getParameterValues("addresses[]") != null) {
-        employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
+            employee.setAddresses(makeAddress(request.getParameterValues("mytext2[]"), request.getParameterValues("Type2[]")));
         } else {
             employee.setAddresses(oldGay.getAddresses());
         }
@@ -190,8 +190,8 @@ public class EmployeeController {
             String[] phones = request.getParameterValues("mytext[]");
             String[] phonesTypes = request.getParameterValues("Type[]");
             employee.setPhones(makePhones(phones, phonesTypes));
-        }else {
-           employee.setPhones(oldGay.getPhones());
+        } else {
+            employee.setPhones(oldGay.getPhones());
         }
         employeeService.update(employee);
         return "redirect:/showEmployees";
@@ -206,10 +206,10 @@ public class EmployeeController {
             address.setCity(addresline[1]);
             address.setStreet(addresline[2]);
             address.setApartment(Integer.parseInt(addresline[3]));
-            List<Address> addresses=employeeService.getAllAddresses();
-            for (Address dbAddress: addresses){
-                if (dbAddress.getPostal()==address.getPostal() || dbAddress.getCity().equals(address.getCity())||
-                        dbAddress.getStreet().equals(address.getStreet()) || dbAddress.getApartment()==address.getApartment()){
+            List<Address> addresses = employeeService.getAllAddresses();
+            for (Address dbAddress : addresses) {
+                if (dbAddress.getPostal() == address.getPostal() || dbAddress.getCity().equals(address.getCity()) ||
+                        dbAddress.getStreet().equals(address.getStreet()) || dbAddress.getApartment() == address.getApartment()) {
                     address.setId(dbAddress.getId());
                 }
             }
@@ -224,19 +224,18 @@ public class EmployeeController {
     }
 
     private List<Phone> makePhones(String[] phones, String[] phonesTypes) {
-        List<Phone> employeePhones=new ArrayList<>();
+        List<Phone> employeePhones = new ArrayList<>();
         for (int i = 0; i < phones.length; i++) {
-            Phone phone=new Phone();
+            Phone phone = new Phone();
             phone.setNumber(phones[i]);
             if (phonesTypes[i].equals("job")) {
                 phone.setEntityType(EntityType.job);
             } else {
                 phone.setEntityType(EntityType.home);
             }
-            List<Phone> dbPhones=employeeService.getAllPhones();
-            for (Phone dbPhone: dbPhones){
-                if (dbPhone.getNumber().equals(phone.getNumber())){
-                    System.out.println("Bingo" + phone.getNumber());
+            List<Phone> dbPhones = employeeService.getAllPhones();
+            for (Phone dbPhone : dbPhones) {
+                if (dbPhone.getNumber().equals(phone.getNumber())) {
                     phone.setId(dbPhone.getId());
                 }
             }

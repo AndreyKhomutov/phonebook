@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+<head>
+    <jsp:include page="/WEB-INF/jsp/parts/head.jsp"/>
+</head>
 <html>
 <body>
-<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/headerBody.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
@@ -96,6 +99,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Адреса</label>
+
                                         <div class="col-sm-10">
                                             <select value multiple class="form-control" name="addresses[]">
                                                 <c:forEach items="${addresses}" var="addresses" varStatus="status">
@@ -107,6 +111,7 @@
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Адреса</label>
+
                                         <div class="col-sm-10">
                                             <div class="input_fields_wrap2">
                                                 <table class="table table-hover" id="tab_logic2">
@@ -115,7 +120,8 @@
                                                         <td>
                                                             <input type="text"
                                                                    name="mytext2[]" class="form-control"
-                                                                   list="addresses" value="Format:178000 SPB Volgogradskaya 10">
+                                                                   list="addresses"
+                                                                   value="Format:178000 SPB Volgogradskaya 10">
                                                         </td>
                                                         <td>
                                                             <select name='Type2[]' placeholder='Type'
@@ -136,6 +142,7 @@
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Телефоны</label>
+
                                         <div class="col-sm-10">
                                             <select value multiple class="form-control" name="phones[]">
                                                 <c:forEach items="${phones}" var="phones" varStatus="status">
@@ -147,6 +154,7 @@
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Телефоны</label>
+
                                         <div class="col-sm-10">
                                             <div class="input_fields_wrap">
                                                 <table class="table table-hover" id="tab_logic">
@@ -154,7 +162,7 @@
                                                     <tr>
                                                         <td>
                                                             <input type="text"
-                                                                   <%--pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{9})$"--%>
+                                                            <%--pattern="^([0|\+[0-9]{1,5})?([1-9][0-9]{9})$"--%>
                                                                    name="mytext[]" class="form-control"
                                                                    list="phones" value="телефон +7(999)...">
                                                         </td>
@@ -199,6 +207,8 @@
         </div>
     </div>
 </div>
-<script><%@include file="/resources/js/addEmployee.js"%></script>
+<script>
+    <%@include file="/resources/js/addEmployee.js" %>
+</script>
 </body>
 </html>

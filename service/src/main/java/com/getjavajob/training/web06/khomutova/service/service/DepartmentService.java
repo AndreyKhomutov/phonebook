@@ -28,10 +28,6 @@ public class DepartmentService implements CrudDao<Department> {
         this.phoneDao = phoneDao;
     }
 
-    public DepartmentDao getDao() {
-        return dao;
-    }
-
     public void setDao(DepartmentDao dao) {
         this.dao = dao;
     }

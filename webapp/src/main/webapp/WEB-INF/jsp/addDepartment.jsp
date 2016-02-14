@@ -3,14 +3,17 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
+<head>
+    <jsp:include page="/WEB-INF/jsp/parts/head.jsp"/>
+</head>
 <body>
-<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/headerBody.jsp"/>
 <jsp:include page="/WEB-INF/jsp/parts/searchform.jsp"/>
 <jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">
-            <h1>Создать департамент</h1>
+            <h1>Create department</h1>
 
             <p></p>
         </div>
@@ -21,11 +24,12 @@
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-body">
-                                <form:form accept-charset="UTF-8" commandname="department" action="/doAddDepartment" method="post"
-                                      class="form-horizontal"
-                                      role="form">
+                                <form:form accept-charset="UTF-8" commandname="department" action="/doAddDepartment"
+                                           method="post"
+                                           class="form-horizontal"
+                                           role="form">
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label">Имя</label>
+                                        <label for="name" class="col-sm-2 control-label">Name</label>
 
                                         <div class="col-sm-10">
                                             <input type="text" name="name" class="form-control" id="name"
@@ -33,8 +37,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Руководитель</label>
-                                        <%--departmentBoss--%>
+                                        <label class="col-sm-2 control-label">Boss</label>
+                                            <%--departmentBoss--%>
                                         <div class="col-sm-10">
                                             <select value class="form-control" name="departmentBoss">
                                                 <c:forEach items="${employees}" var="employees"
@@ -45,8 +49,7 @@
                                         </div>
                                     </div>
                                     <input class="btn btn-success btn btn-lg btn-success btn-block" name="commit"
-                                           type="submit" value="Сохранить">
-
+                                           type="submit" value="Save">
                                 </form:form>
                             </div>
                         </div>

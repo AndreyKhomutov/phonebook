@@ -2,8 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+<head>
+    <jsp:include page="/WEB-INF/jsp/parts/head.jsp"/>
+</head>
 <body>
-<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/headerBody.jsp"/>
 <div class="container">
     <div class="row">
         <div class="page-header">

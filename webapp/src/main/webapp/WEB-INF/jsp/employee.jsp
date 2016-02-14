@@ -2,11 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
-<style><%@include file="/resources/css/addPictureButton.css"%></style>
+    <jsp:include page="/WEB-INF/jsp/parts/head.jsp"/>
+    <style>
+        <%@include file="/resources/css/addPictureButton.css" %>
+    </style>
 </head>
 <html>
 <body>
-<jsp:include page="/WEB-INF/jsp/parts/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/parts/headerBody.jsp"/>
 <jsp:include page="/WEB-INF/jsp/parts/searchform.jsp"/>
 <jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 <div class="container">
@@ -14,7 +17,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h1 class="panel-title">Имя: ${employee.name}
+                    <h1 class="panel-title">Name: ${employee.name}
                     </h1>
                 </div>
                 <div class="panel-body">
@@ -23,7 +26,8 @@
 
                             <form method="post" action="/photo" headers="content-type=multipart/*"
                                   enctype="multipart/form-data">
-                                <img id="blah" src='data:image/jpeg;base64,${photo}' class="img-thumbnail img-responsive" style="height:100px "/>
+                                <img id="blah" src='data:image/jpeg;base64,${photo}'
+                                     class="img-thumbnail img-responsive" style="height:100px "/>
                                 <span class="btn btn-success btn-file">
                                   <i class="icon-plus"></i> <span>Choose picture</span>
                                    <input type="file" name="image" id="imgInp"/>
@@ -48,12 +52,12 @@
                             <table class="table table-user-information">
                                 <tbody>
                                 <tr>
-                                    <td>Департамент:</td>
+                                    <td>Department:</td>
                                     <td>${employee.department.name}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Дата рождения</td>
+                                    <td>Birtday</td>
                                     <td>${employee.birthday}
                                     </td>
                                 </tr>
@@ -73,7 +77,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Начальник</td>
+                                    <td>Boss</td>
                                     <td>${employee.boss.name}
                                     </td>
                                 </tr>
@@ -96,7 +100,7 @@
                                 </tbody>
                             </table>
                             <tr>
-                                <p><a class="btn btn-default" href="/showEmployees" role="button">Назад &raquo;</a></p>
+                                <p><a class="btn btn-default" href="/showEmployees" role="button">Back &raquo;</a></p>
                             </tr>
                         </div>
                     </div>
@@ -105,6 +109,8 @@
         </div>
     </div>
 </div>
-<script><%@include file="/resources/js/addPicture.js"%></script>
+<script>
+    <%@include file="/resources/js/addPicture.js" %>
+</script>
 </body>
 </html>

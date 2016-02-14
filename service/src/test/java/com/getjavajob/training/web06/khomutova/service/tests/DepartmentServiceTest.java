@@ -8,7 +8,6 @@ import com.getjavajob.training.web06.khomutova.service.service.DepartmentService
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class DepartmentServiceTest {
     public void init() {
         imitatorDao = mock(DepartmentDao.class);
         emloyeeImitation = mock(EmployeeDao.class);
-        departmentService=new DepartmentService(imitatorDao, emloyeeImitation, null, null);
+        departmentService = new DepartmentService(imitatorDao, emloyeeImitation, null, null);
     }
 
     @Test

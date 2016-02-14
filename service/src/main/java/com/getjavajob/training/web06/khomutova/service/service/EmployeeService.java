@@ -82,10 +82,6 @@ public class EmployeeService implements CrudDao<Employee> {
         dao.delete(id);
     }
 
-    public EmployeeDao getDao() {
-        return dao;
-    }
-
     public void setDao(EmployeeDao dao) {
         this.dao = dao;
     }

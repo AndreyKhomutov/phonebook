@@ -64,7 +64,7 @@ public class EmployeeDaoTest {
     @Test
     public void add() {
         Employee employee1 = employeeDao.get(1);
-        Employee employee=new Employee();
+        Employee employee = new Employee();
         employee.setName("Ivanov Ivan");
         employee.setBirthday(employee1.getBirthday());
         employee.setPhoto(employee1.getPhoto());

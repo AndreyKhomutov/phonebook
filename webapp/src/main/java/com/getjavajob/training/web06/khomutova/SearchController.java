@@ -32,6 +32,7 @@ public class SearchController {
     @RequestMapping("/getEmployees")
     @ResponseBody
     public List<Employee> getEmployees(final @RequestParam("filter") String filter) {
+        System.out.println("Bingo");
         List<Employee> emps = employeeService.getAll();
         CollectionUtils.filter(emps, new Predicate<Employee>() {
 

@@ -16,14 +16,12 @@ import static org.mockito.Mockito.when;
 public class EmployeeServiceTest {
     private EmployeeDao imitatorDao = mock(EmployeeDao.class);
 
-    private EmployeeService employeeService=new EmployeeService(null, null, null);
-
+    private EmployeeService employeeService = new EmployeeService(null, null, null);
 
     @Before
     public void initilizatio() {
         employeeService.setDao(imitatorDao);
     }
-
 
     @Test
     public void getAll() {
