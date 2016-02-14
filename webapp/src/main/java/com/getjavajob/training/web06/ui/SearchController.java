@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova;
+package com.getjavajob.training.web06.ui;
 
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;

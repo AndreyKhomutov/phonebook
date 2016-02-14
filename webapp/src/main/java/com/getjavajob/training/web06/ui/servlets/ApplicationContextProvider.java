@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.servlets;
+package com.getjavajob.training.web06.ui.servlets;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

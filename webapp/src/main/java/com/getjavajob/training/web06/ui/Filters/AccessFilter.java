@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.Filters;
+package com.getjavajob.training.web06.ui.Filters;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

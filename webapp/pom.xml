@@ -11,14 +11,6 @@
     <artifactId>webapp</artifactId>
     <packaging>war</packaging>
 
-    <properties>
-        <jackson.version>2.6.3</jackson.version>
-        <commons-collections4>4.1</commons-collections4>
-        <commons-fileupload>1.2.1</commons-fileupload>
-        <commons-io>1.4</commons-io>
-        <aspectjweaver>1.7.2</aspectjweaver>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -83,5 +75,4 @@
             <version>${commons-io}</version>
         </dependency>
     </dependencies>
-
 </project>

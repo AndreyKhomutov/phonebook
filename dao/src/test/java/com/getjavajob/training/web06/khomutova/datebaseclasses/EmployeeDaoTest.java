@@ -2,7 +2,7 @@ package com.getjavajob.training.web06.khomutova.datebaseclasses;
 
 import com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.EmployeeDao;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Employee;
-import com.getjavajob.training.web06.khomutova.servlets.ApplicationContextProvider;
+import com.getjavajob.training.web06.ui.servlets.ApplicationContextProvider;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.h2.tools.RunScript;
 import org.junit.Before;

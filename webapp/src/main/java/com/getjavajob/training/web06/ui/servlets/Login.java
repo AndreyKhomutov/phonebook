@@ -1,4 +1,4 @@
-package com.getjavajob.training.web06.khomutova.servlets;
+package com.getjavajob.training.web06.ui.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
