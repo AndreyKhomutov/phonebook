@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 public class DepartmentController {
+
+    private static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
 
     @Autowired
     private EmployeeService employeeService;
@@ -25,14 +29,17 @@ public class DepartmentController {
 
     @RequestMapping(value = "/showDepartments", method = RequestMethod.GET)
     public ModelAndView showDepartments() {
+        logger.debug("Start showDepartments method");
         List<Department> departments = departmentService.getAll();
         ModelAndView modelAndView = new ModelAndView("departments");
         modelAndView.addObject("departments", departments);
+        logger.info("End of showDepartments method");
         return modelAndView;
     }
 
     @RequestMapping(value = "/showDepartment", method = RequestMethod.GET)
     public ModelAndView showDepartment(@RequestParam("ID") int id) {
+        logger.debug("Going to show update page for " + id);
         Department department = departmentService.get(id);
         Employee boss = department.getDepartmentBoss();
         ModelAndView modelAndView = new ModelAndView("department");
@@ -43,6 +50,7 @@ public class DepartmentController {
 
     @RequestMapping(value = "/addDepartment", method = RequestMethod.GET)
     public ModelAndView addDepartment() {
+        logger.debug("Start addDepartment method");
         ModelAndView modelAndView = new ModelAndView("addDepartment");
         modelAndView.addObject("employees", employeeService.getAll());
         return modelAndView;
@@ -60,6 +68,7 @@ public class DepartmentController {
 
     @RequestMapping(value = "/deleteDepartment", method = RequestMethod.GET)
     public String deleteDepartment(@RequestParam("ID") int id) {
+        logger.debug("Going to deleteDepartment " + id);
         departmentService.delete(id);
         return "redirect:/showDepartments";
     }

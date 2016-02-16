@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -29,6 +31,8 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+
     @Autowired
     private EmployeeService employeeService;
 
@@ -37,6 +41,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/showEmployees", method = RequestMethod.GET)
     public ModelAndView showEmployees() {
+        logger.debug("Start showEmployees method");
         List<Employee> employees = employeeService.getAll();
         ModelAndView modelAndView = new ModelAndView("employees");
         modelAndView.addObject("employees", employees);
@@ -70,6 +75,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
     public ModelAndView addEmployee() {
+        logger.debug("Start addEmployee method");
         ModelAndView modelAndView = new ModelAndView("addEmployee");
         modelAndView.addObject("departments", departmentService.getAll());
         modelAndView.addObject("employees", employeeService.getAll());
