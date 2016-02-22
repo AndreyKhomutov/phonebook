@@ -16,5 +16,10 @@
         <artifactId>hibernate-core</artifactId>
         <version>${hibernate}</version>
         </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xtream}</version>
+        </dependency>
     </dependencies>
 </project>

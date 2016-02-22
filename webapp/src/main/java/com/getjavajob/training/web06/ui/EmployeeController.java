@@ -6,6 +6,9 @@ import com.getjavajob.training.web06.khomutova.phonebookclasses.EntityType;
 import com.getjavajob.training.web06.khomutova.phonebookclasses.Phone;
 import com.getjavajob.training.web06.khomutova.service.service.DepartmentService;
 import com.getjavajob.training.web06.khomutova.service.service.EmployeeService;
+import com.getjavajob.training.web06.ui.xmlserializer.Serializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
@@ -81,6 +83,33 @@ public class EmployeeController {
         modelAndView.addObject("employees", employeeService.getAll());
         modelAndView.addObject("addresses", employeeService.getAllAddresses());
         modelAndView.addObject("phones", employeeService.getAllPhones());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/toXmlEmployee", method = RequestMethod.GET)
+    public String toXmlEmployee() {
+        List<Employee> employees = employeeService.getAll();
+        Serializer serializer = new Serializer();
+     //   File file = new File("c:\\XML/employee.xml");
+        ClassLoader loader = EmployeeController.class.getClassLoader();
+        File file = new File(loader.getResource("employees.xml").getFile());
+        try {
+            serializer.toXML(employees, file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/showEmployees";
+    }
+
+    @RequestMapping(value = "/getFromXmlEmployees", method = RequestMethod.GET)
+    public ModelAndView getFromXmlEmployees() throws FileNotFoundException {
+        Serializer serializer = new Serializer();
+       // File file = new File("c:\\XML/employee.xml");
+        ClassLoader loader = EmployeeController.class.getClassLoader();
+        File file = new File(loader.getResource("employees.xml").getFile());
+        List<Employee> employees=serializer.fromXML(file);
+        ModelAndView modelAndView = new ModelAndView("employees");
+        modelAndView.addObject("employees", employees);
         return modelAndView;
     }
 

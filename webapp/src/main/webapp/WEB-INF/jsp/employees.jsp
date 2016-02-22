@@ -10,6 +10,7 @@
 <jsp:include page="/WEB-INF/jsp/parts/lists.jsp"/>
 <div>
     <p><a class="btn btn-primary btn-sm RbtnMargin" href="/addEmployee" role="button">Add</a></p>
+    <p><a class="btn btn-primary pull-right btn-lg RbtnMargin" href="/toXmlEmployee" role="button">toXML</a></p>
     <table class="table">
         <thead>
         <tr>
