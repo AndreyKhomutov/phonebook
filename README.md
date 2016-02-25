@@ -7,7 +7,7 @@
 + display employee/department profile
 + edit employee/department profile
 + add employee/department profile
-+ upload and download employee вЂs avatar  
++ upload and download employee вЂ?s avatar  
 + users import/export to xml  
 
 Screenshorts:
@@ -34,5 +34,5 @@ SQL ddl is located in the `dao/src/test/resources/ createDataBase.sql`
 
 --  
 **Khomutov Andrey**  
-РўСЂРµРЅРёРЅРі getJavaJob,   
+Тренинг getJavaJob,   
 [http://www.getjavajob.com](http://www.getjavajob.com)
