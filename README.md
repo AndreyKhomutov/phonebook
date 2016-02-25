@@ -13,15 +13,15 @@
 Screenshorts:
 
 Employees
-![image001.jpg](https://bitbucket.org/repo/rE8ERE/images/794122232-image001.jpg)
+[https://bitbucket.org/repo/rE8ERE/images/794122232-image001.jpg]
  
 
 Edit employee:
-![image002.jpg](https://bitbucket.org/repo/rE8ERE/images/3869458548-image002.jpg)
+[https://bitbucket.org/repo/rE8ERE/images/3869458548-image002.jpg]
  
 Logging by Admin with Delete Function
 
-![image003.jpg](https://bitbucket.org/repo/rE8ERE/images/1772621452-image003.jpg)
+[https://bitbucket.org/repo/rE8ERE/images/1772621452-image003.jpg])
 
  
 
