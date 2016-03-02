@@ -37,6 +37,6 @@
     </bean>
 
     <bean id="applicationContextProvider"
-          class="com.getjavajob.training.web06.ui.servlets.ApplicationContextProvider"/>
+          class="com.getjavajob.training.web06.khomutova.datebaseclasses.daoClasses.ApplicationContextProvider"/>
 
 </beans>
