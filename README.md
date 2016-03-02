@@ -3,36 +3,34 @@
 ** Functionality: **
 
 + authentication  
-+ ajax search employees
-+ display employee/department profile
-+ edit employee/department profile
-+ add employee/department profile
-+ upload and download employee â€?s avatar  
++ show/update/delete/add employee/department
++ multiple roles as admin/user
++ add/remove/update avatar for employee
++ Ajax search employees
 + users import/export to xml  
++ Bootstrap/jQuery effects
 
-Screenshorts:
+**Screenshots:**
 
-Employees
-[https://bitbucket.org/repo/rE8ERE/images/794122232-image001.jpg]
- 
+Main page with employees
+
+[https://gyazo.com/7bba6625c5baee2af04aa27f1c3ae021]
 
 Edit employee:
-[https://bitbucket.org/repo/rE8ERE/images/3869458548-image002.jpg]
- 
-Logging by Admin with Delete Function
 
-[https://bitbucket.org/repo/rE8ERE/images/1772621452-image003.jpg])
+[https://gyazo.com/f6aa86b49e618030d4d5bba8b40b2e25]
 
- 
+Logging by Admin with delete function
+
+[https://gyazo.com/db516853b9dce4a240215f651703a682)
 
 ** Tools: **  
 JDK 7, Spring 4, JPA 2 / Hibernate 4, XStream, jQuery 2, Twitter Bootstrap 3, JUnit 4, Mockito, Maven 3, Git / Bitbucket, Tomcat 7, MySql, IntelliJIDEA 14.  
-
 
 ** Notes: **  
 SQL ddl is located in the `dao/src/test/resources/ createDataBase.sql`
 
 --  
 **Khomutov Andrey**  
-Òðåíèíã getJavaJob,   
+Ð¢Ñ€ÐµÐ½Ð¸Ð½Ð³ getJavaJob,   
 [http://www.getjavajob.com](http://www.getjavajob.com)
